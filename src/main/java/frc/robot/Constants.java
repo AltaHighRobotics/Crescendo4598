@@ -16,7 +16,27 @@ import utilities.PIDConfiguration;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  // Driving.
   public static final int DRIVE_CONTROLLER = 0;
+  public static final double DRIVE_SPEED = 0.5;
+  public static final double DRIVE_TURN_SPEED = 0.5;
+
+  // Controller.
+  public static final double DRIVE_CONTROLLER_RIGHT_DEAD_ZONE = 0.05;
+  public static final double DRIVE_CONTROLLER_LEFT_DEAD_ZONE = 0.05;
+
+  public static final int RIGHT_STICK_Y = 3;
+  public static final int RIGHT_STICK_X = 4;
+  public static final int LEFT_STICK_Y = 1;
+  public static final int LEFT_STICK_X = 0;
+
+  public static final int XBOX_A_BUTTON = 1; 
+  public static final int XBOX_B_BUTTON = 2;
+  public static final int XBOX_X_BUTTON = 3;
+  public static final int XBOX_Y_BUTTON = 4;
+
+  public static final int XBOX_LEFT_BUMPER = 5;
+  public static final int XBOX_RIGHT_BUMPER = 6;
 
   // Swerve module.
   public static final double SWERVE_MODULE_TURN_ENCODER_DISTANCE_PER_PULSE = 2.099982500145832; // 42 steps per rotation old 12.600000000000001 171.43/1

@@ -5,9 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+//import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import frc.robot.swerve.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -16,12 +21,20 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final CommandXboxController m_driverController = new CommandXboxController(Constants.DRIVE_CONTROLLER);
+  // Controllers.
+  private final XboxController m_driveController = new XboxController(Constants.DRIVE_CONTROLLER);
+
+  // Subsystems.
+  private final DriveTrainSub m_driveTrainSub = new DriveTrainSub();
+
+  // Commands.
+  private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    CommandScheduler.getInstance().setDefaultCommand(m_driveTrainSub, m_driveCommand);
   }
 
   /**
@@ -34,7 +47,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }
 
   /**

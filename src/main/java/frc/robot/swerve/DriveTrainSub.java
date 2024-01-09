@@ -139,7 +139,7 @@ public class DriveTrainSub extends SubsystemBase {
   }
 
   // Usefull stuff: https://www.chiefdelphi.com/uploads/default/original/3X/e/f/ef10db45f7d65f6d4da874cd26db294c7ad469bb.pdf
-  public void setSwerveDriveWithLimit(double strafe, double speed, double rotation, boolean fieldCentric, double driveSpeed) {
+  public void drive(double strafe, double speed, double rotation, boolean fieldCentric, double driveSpeed) {
     double x = strafe;
     double y = speed;
     double z = -rotation;
