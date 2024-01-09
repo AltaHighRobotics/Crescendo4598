@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.swerve.SwerveModuleConfig;
 import utilities.PIDConfiguration;
 
 /**
@@ -23,4 +24,21 @@ public final class Constants {
   public static final double SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE = 2.3486098074077995e-05; // 2048 steps per rotation
 
   public static final PIDConfiguration SWERVE_MODULE_TURN_PID = new PIDConfiguration(0.012, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, -0.5, 0.5);
+
+  public static final int FRONT_RIGHT_MODULE = 0;
+  public static final int FRONT_LEFT_MODULE = 1;
+  public static final int BACK_RIGHT_MODULE = 2;
+  public static final int BACK_LEFT_MODULE = 3;
+  public static final int SWERVE_MODULE_COUNT = 4;
+
+  public static final SwerveModuleConfig[] SWERVE_MODULE_CONFIGS = {
+      new SwerveModuleConfig(0, 0, false, false), // Front right
+      new SwerveModuleConfig(0, 0, false, false), // Front left
+      new SwerveModuleConfig(0, 0, false, false), // Back right
+      new SwerveModuleConfig(0, 0, false, false) // Back left
+  };
+  
+  public static final double VEHICLE_WHEELBASE = 1.0;
+  public static final double VEHICLE_TRACKWIDTH = 1.0;
+  public static final double VEHICLE_RADIUS = Math.hypot(VEHICLE_WHEELBASE, VEHICLE_TRACKWIDTH);
 }

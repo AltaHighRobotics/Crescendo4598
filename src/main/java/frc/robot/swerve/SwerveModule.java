@@ -1,6 +1,5 @@
 package frc.robot.swerve;
 
-import utilities.PIDConfiguration;
 import utilities.ConfigurablePID;
 
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -11,11 +10,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel;
 
-
 import frc.robot.Constants;
 import utilities.MathTools;
-
-import edu.wpi.first.math.MathUtil;
 
 public class SwerveModule {
   /** Creates a new SwerveModuleSub. */
