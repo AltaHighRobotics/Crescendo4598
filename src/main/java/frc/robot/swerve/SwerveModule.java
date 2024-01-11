@@ -109,6 +109,10 @@ public class SwerveModule {
     }
   }
 
+  public double getDesiredAngle() {
+    return this.desiredAngle;
+  }
+
   public double getDistance() {
     return wheelMotor.getPosition().getValue() * Constants.SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE;
   }
