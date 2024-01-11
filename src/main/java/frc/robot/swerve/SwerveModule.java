@@ -91,7 +91,14 @@ public class SwerveModule {
     turnEncoder.setPosition(position);
   }
   //I Love potato
-  // tostinos tostinos hot npizza rolls
+  // tostinos tostinos hot pizza rolls
+  //tostinos tostinos everybody's talking bout tostinos tostinos hot pizza rolls
+
+  //ni how ma
+  //hoa
+  //robot worky pls
+  //rock paper sciccor shoot
+
   // TODO: write me pleaz
   public void setDesiredAngle(double desiredAngle) {
     double turnDis = MathTools.angleDis(MathTools.wrapAngle(desiredAngle), getAngle());

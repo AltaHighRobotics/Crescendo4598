@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 //import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -29,6 +30,7 @@ public class RobotContainer {
 
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
+  private final ResetGryoCommand m_resetGyroCommand = new ResetGryoCommand(m_driveTrainSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,6 +49,11 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // Define buttons.
+    final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 7);
+
+    // Bind stuff.
+    resetGyroButton.onTrue(m_resetGyroCommand);
   }
 
   /**
