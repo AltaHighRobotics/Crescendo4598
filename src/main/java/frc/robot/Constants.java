@@ -51,12 +51,12 @@ public final class Constants {
   public static final int BACK_LEFT_MODULE = 3;
   public static final int SWERVE_MODULE_COUNT = 4;
 
-  public static final SwerveModuleConfig[] SWERVE_MODULE_CONFIGS = {
-      new SwerveModuleConfig(0, 0, false, false), // Front right
-      new SwerveModuleConfig(0, 0, false, false), // Front left
-      new SwerveModuleConfig(0, 0, false, false), // Back right
-      new SwerveModuleConfig(0, 0, false, false) // Back left
-  };
+  public static final SwerveModuleConfig []SWERVE_MODULE_CONFIGS = {
+    new SwerveModuleConfig(20, 9, true, false), // Front right
+    new SwerveModuleConfig(7, 3, false, false), // Front left
+    new SwerveModuleConfig(32, 8, true, false), // Back right
+    new SwerveModuleConfig(5, 6, false, false) // Back left
+};
   
   public static final double VEHICLE_WHEELBASE = 1.0;
   public static final double VEHICLE_TRACKWIDTH = 1.0;

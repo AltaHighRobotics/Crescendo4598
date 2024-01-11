@@ -50,13 +50,13 @@ public class DriveCommand extends Command {
     double speed = leftStickY;
     double rotation = rightStickX;
 
-    m_driveTrainSub.drive(
-      Math.pow(strafe, 2.0) * Math.signum(strafe), 
-      -Math.pow(speed, 2.0) * Math.signum(speed), 
-      Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
-      true,
-      Constants.DRIVE_SPEED
-    );
+    // m_driveTrainSub.drive(
+    //   Math.pow(strafe, 2.0) * Math.signum(strafe), 
+    //   -Math.pow(speed, 2.0) * Math.signum(speed), 
+    //   Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
+    //   true,
+    //   Constants.DRIVE_SPEED
+    // );
   }
 
   // Called once the command ends or is interrupted.
