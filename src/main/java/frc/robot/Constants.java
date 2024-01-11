@@ -30,6 +30,11 @@ public final class Constants {
   public static final int LEFT_STICK_Y = 1;
   public static final int LEFT_STICK_X = 0;
 
+  public static final int FLIGHT_STICK_X = 0;
+  public static final int FLIGHT_STICKY_Y = 1;
+  public static final int FLIGHT_STICK_Z = 2;
+  public static final int FLIGHT_STICK_SLIDER = 3;
+
   public static final int XBOX_A_BUTTON = 1; 
   public static final int XBOX_B_BUTTON = 2;
   public static final int XBOX_X_BUTTON = 3;
@@ -52,10 +57,10 @@ public final class Constants {
   public static final int SWERVE_MODULE_COUNT = 4;
 
   public static final SwerveModuleConfig []SWERVE_MODULE_CONFIGS = {
-    new SwerveModuleConfig(20, 9, true, false), // Front right
-    new SwerveModuleConfig(7, 3, false, false), // Front left
-    new SwerveModuleConfig(32, 8, true, false), // Back right
-    new SwerveModuleConfig(5, 6, false, false) // Back left
+    new SwerveModuleConfig(20, 9, false, false), // Front right
+    new SwerveModuleConfig(7, 3, true, false), // Front left
+    new SwerveModuleConfig(32, 8, false, false), // Back right
+    new SwerveModuleConfig(5, 6, true, false) // Back left
 };
   
   public static final double VEHICLE_WHEELBASE = 1.0;

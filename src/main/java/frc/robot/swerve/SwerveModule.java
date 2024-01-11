@@ -17,11 +17,12 @@ public class SwerveModule {
   /** Creates a new SwerveModuleSub. */
   private SwerveModuleConfig configuration;
 
-  private static final double FORWARD = 1;
-  private static final double BACKWARD = -1;
+  private static final double FORWARD = 1.0;
+  private static final double BACKWARD = -1.0;
 
   // Wheel.
   private TalonFX wheelMotor;
+  private double wheelDirection = FORWARD;
 
   // Turn.
   private ConfigurablePID turnPid;
@@ -54,7 +55,7 @@ public class SwerveModule {
   }
 
   public void setWheelMotor(double speed) {
-    wheelMotor.set(speed);
+    wheelMotor.set(speed * wheelDirection);
   }
 
   public void stopWheelMotor() {
@@ -89,10 +90,23 @@ public class SwerveModule {
   public void setTurnEncoderPosition(double position) {
     turnEncoder.setPosition(position);
   }
-  
+  //I Love potato
+  // tostinos tostinos hot npizza rolls
   // TODO: write me pleaz
   public void setDesiredAngle(double desiredAngle) {
-    this.desiredAngle = desiredAngle;
+    double turnDis = MathTools.angleDis(MathTools.wrapAngle(desiredAngle), getAngle());
+
+    if (Math.abs(turnDis) > 90.0) {
+      this.desiredAngle = MathTools.getAngleSetPoint(
+        MathTools.wrapAngle(desiredAngle - turnDis), 
+        getTurnEncoderPosition()
+      );
+
+      wheelDirection = BACKWARD;
+    } else {
+      this.desiredAngle = MathTools.getAngleSetPoint(desiredAngle, getTurnEncoderPosition());
+      wheelDirection = FORWARD;
+    }
   }
 
   public double getDistance() {

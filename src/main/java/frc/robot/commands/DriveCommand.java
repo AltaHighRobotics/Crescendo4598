@@ -30,25 +30,22 @@ public class DriveCommand extends Command {
   public void execute() {
 
     // Get joystick values.
-    double rightStickX = m_driveController.getRawAxis(Constants.RIGHT_STICK_X);
-    double rightStickY = m_driveController.getRawAxis(Constants.RIGHT_STICK_Y);
-    double leftStickY = m_driveController.getRawAxis(Constants.LEFT_STICK_Y);
-    double leftStickX = m_driveController.getRawAxis(Constants.LEFT_STICK_X);
+    double flightStickX = m_driveController.getRawAxis(Constants.FLIGHT_STICK_X);
+    double flightStickY = m_driveController.getRawAxis(Constants.FLIGHT_STICKY_Y);
+    double flightStickZ = m_driveController.getRawAxis(Constants.FLIGHT_STICK_Z);
 
     // Apply dead zones to controller.
-    if (Math.abs(rightStickX) < Constants.DRIVE_CONTROLLER_RIGHT_DEAD_ZONE) {
-      rightStickX = 0.0;
-    } if (Math.abs(rightStickY) < Constants.DRIVE_CONTROLLER_RIGHT_DEAD_ZONE) {
-      rightStickY = 0.0;
-    } if (Math.abs(leftStickX) < Constants.DRIVE_CONTROLLER_LEFT_DEAD_ZONE) {
-      leftStickX = 0.0;
-    } if (Math.abs(leftStickY) < Constants.DRIVE_CONTROLLER_LEFT_DEAD_ZONE) {
-      leftStickY = 0.0;
+    if (Math.abs(flightStickX) < Constants.DRIVE_CONTROLLER_RIGHT_DEAD_ZONE) {
+      flightStickX = 0.0;
+    } if (Math.abs(flightStickY) < Constants.DRIVE_CONTROLLER_RIGHT_DEAD_ZONE) {
+      flightStickY = 0.0;
+    } if (Math.abs(flightStickZ) < Constants.DRIVE_CONTROLLER_LEFT_DEAD_ZONE) {
+      flightStickZ = 0.0;
     }
 
-    double strafe = leftStickX;
-    double speed = leftStickY;
-    double rotation = rightStickX;
+    double strafe = flightStickX;
+    double speed = flightStickY;
+    double rotation = flightStickZ;
 
     m_driveTrainSub.drive(
       Math.pow(strafe, 2.0) * Math.signum(strafe), 
