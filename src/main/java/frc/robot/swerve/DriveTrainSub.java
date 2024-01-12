@@ -15,6 +15,8 @@ public class DriveTrainSub extends SubsystemBase {
   private SwerveModule[] swerveModuleSubs = new SwerveModule[Constants.SWERVE_MODULE_COUNT];
   private AHRS navx;
 
+  private double fieldCentricOffset = 0.0;
+
   public DriveTrainSub() {
     // Config swerve modules,
     for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -28,6 +30,10 @@ public class DriveTrainSub extends SubsystemBase {
   public void resetGyro() {
     navx.reset();
     navx.zeroYaw();
+  }
+
+  public void zeroFieldCentric() {
+    fieldCentricOffset = navx.getYaw();
   }
 
   public void resetWheelEncoders() {
@@ -146,7 +152,7 @@ public class DriveTrainSub extends SubsystemBase {
 
     // Field centric.
     if (fieldCentric) {
-      double yaw = Math.toRadians(getYaw());
+      double yaw = Math.toRadians(getYaw() - fieldCentricOffset);
       double angleCos = Math.cos(yaw);
       double angleSin = Math.sin(yaw);
 

@@ -30,7 +30,7 @@ public class RobotContainer {
 
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
-  private final ResetGryoCommand m_resetGyroCommand = new ResetGryoCommand(m_driveTrainSub);
+  private final ResetFieldCentricCommand m_resetGyroCommand = new ResetFieldCentricCommand(m_driveTrainSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

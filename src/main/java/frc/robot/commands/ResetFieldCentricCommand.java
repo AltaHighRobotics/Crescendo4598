@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.swerve.DriveTrainSub;
 
-public class ResetGryoCommand extends Command {
+public class ResetFieldCentricCommand extends Command {
   private DriveTrainSub m_driveTrainSub;
 
-  public ResetGryoCommand(DriveTrainSub driveTrainSub) {
+  public ResetFieldCentricCommand(DriveTrainSub driveTrainSub) {
     m_driveTrainSub = driveTrainSub;
 
     addRequirements(m_driveTrainSub);
@@ -24,7 +24,7 @@ public class ResetGryoCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrainSub.resetGyro();
+    m_driveTrainSub.zeroFieldCentric();
   }
 
   // Called once the command ends or is interrupted.
