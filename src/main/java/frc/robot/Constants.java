@@ -48,6 +48,8 @@ public final class Constants {
   public static final double SWERVE_MODULE_WHEEL_CIRCUMFERENCE = 0.3092112569295754; // Meters
   public static final double SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE = 2.3486098074077995e-05; // 2048 steps per rotation
 
+  public static final double SWERVE_MODULE_WHEEL_CURRENT_LIMIT = 50.0;
+
   public static final PIDConfiguration SWERVE_MODULE_TURN_PID = new PIDConfiguration(0.012, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, -0.5, 0.5);
 
   public static final int FRONT_RIGHT_MODULE = 0;

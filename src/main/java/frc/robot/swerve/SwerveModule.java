@@ -2,6 +2,7 @@ package frc.robot.swerve;
 
 import utilities.ConfigurablePID;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -36,6 +37,14 @@ public class SwerveModule {
 
     // Wheel motor.
     wheelMotor = new TalonFX(config.wheelMotorId);
+
+    // Config wheel motor.
+    TalonFXConfiguration wheelMotorConfig = new TalonFXConfiguration();
+    wheelMotorConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    wheelMotorConfig.CurrentLimits.StatorCurrentLimit = Constants.SWERVE_MODULE_WHEEL_CURRENT_LIMIT;
+
+    wheelMotor.getConfigurator().apply(wheelMotorConfig);
+
     wheelMotor.setInverted(config.invertWheelMotor);
     wheelMotor.setNeutralMode(NeutralModeValue.Coast);
     resetWheelEncoder();

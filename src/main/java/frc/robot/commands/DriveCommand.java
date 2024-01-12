@@ -51,7 +51,7 @@ public class DriveCommand extends Command {
       Math.pow(strafe, 2.0) * Math.signum(strafe), 
       -Math.pow(speed, 2.0) * Math.signum(speed), 
       Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
-      false,
+      true,
       Constants.DRIVE_SPEED
     );
 

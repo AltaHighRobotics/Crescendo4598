@@ -50,7 +50,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Define buttons.
-    final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 7);
+    final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 5);
 
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);

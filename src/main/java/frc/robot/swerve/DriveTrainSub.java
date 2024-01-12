@@ -142,7 +142,7 @@ public class DriveTrainSub extends SubsystemBase {
   public void drive(double strafe, double speed, double rotation, boolean fieldCentric, double driveSpeed) {
     double x = strafe;
     double y = speed;
-    double z = -rotation;
+    double z = rotation;
 
     // Field centric.
     if (fieldCentric) {
