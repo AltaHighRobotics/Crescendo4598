@@ -46,7 +46,8 @@ public final class Constants {
   // Swerve module.
   public static final double SWERVE_MODULE_TURN_ENCODER_DISTANCE_PER_PULSE = 2.099982500145832; // 42 steps per rotation old 12.600000000000001 171.43/1
   public static final double SWERVE_MODULE_WHEEL_CIRCUMFERENCE = 0.3092112569295754; // Meters
-  public static final double SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE = 2.3486098074077995e-05; // 2048 steps per rotation
+  public static final double SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE = 16384 * 0.00000826719 * 0.3092112569295754;
+  // 16384 * gear_thingy * circumference. gear thingy is 0.00000826719.
 
   public static final double SWERVE_MODULE_WHEEL_CURRENT_LIMIT = 50.0;
 

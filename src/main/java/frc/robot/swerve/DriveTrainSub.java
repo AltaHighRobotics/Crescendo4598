@@ -7,6 +7,8 @@ import frc.robot.Constants;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C.Port;
 
+import utilities.CartesianVector;
+
 import java.lang.Math;
 import utilities.MathTools;
 
@@ -17,6 +19,9 @@ public class DriveTrainSub extends SubsystemBase {
 
   private double fieldCentricOffset = 0.0;
 
+  // Position stuff.
+  private CartesianVector position;
+
   public DriveTrainSub() {
     // Config swerve modules,
     for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -25,6 +30,10 @@ public class DriveTrainSub extends SubsystemBase {
 
     navx = new AHRS(Port.kMXP);
     resetGyro();
+
+    zeroFieldCentric();
+
+    position = new CartesianVector(0.0, 0.0);
   }
 
   public void resetGyro() {
@@ -34,33 +43,6 @@ public class DriveTrainSub extends SubsystemBase {
 
   public void zeroFieldCentric() {
     fieldCentricOffset = navx.getYaw();
-  }
-
-  public void resetWheelEncoders() {
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      swerveModuleSubs[i].resetWheelEncoder();
-    }
-  }
-
-  public void resetTurnEncoders() {
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      swerveModuleSubs[i].resetTurnEncoder();
-    }
-  }
-
-  public double getAvgWheelEncoder() {
-    double avg = 0.0;
-
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      avg += swerveModuleSubs[i].getDistance();
-    }
-
-    return avg / 4;
-  }
-
-  public void resetAllEncoders() {
-    resetWheelEncoders();
-    resetTurnEncoders();
   }
 
   public double getPitch() {
@@ -79,18 +61,6 @@ public class DriveTrainSub extends SubsystemBase {
     return navx.getCompassHeading();
   }
 
-  public void stopTurn() {
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      swerveModuleSubs[i].stopTurnMotor();
-    }
-  }
-
-  public void stopDrive() {
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      swerveModuleSubs[i].stopWheelMotor();
-    }
-  }
-
   // Look in Constants.java for ids.
   public SwerveModule getSwerveModuleFromId(int id) {
     return swerveModuleSubs[id];
@@ -100,14 +70,8 @@ public class DriveTrainSub extends SubsystemBase {
     return swerveModuleSubs;
   }
 
-  public void stop() {
-    stopTurn();
-    stopDrive();
-  }
-
   private static double[] normalizeSpeeds(double []speeds) {
-    int i;
-    double []normalizedSpeeds = speeds.clone();
+    double[] normalizedSpeeds = speeds.clone();
     double max = normalizedSpeeds[0];
 
     // Get max.
@@ -121,25 +85,69 @@ public class DriveTrainSub extends SubsystemBase {
     }
 
     // Normalize.
-    for (i = 0; i < normalizedSpeeds.length; ++i) {
+    for (int i = 0; i < normalizedSpeeds.length; ++i) {
       normalizedSpeeds[i] /= max;
     }
 
     return normalizedSpeeds;
   }
 
+  public void trackPosition() {
+    // Get distance rate and angle.
+    double averageDistanceRate = 0.0;
+    double averageAngle = 0.0;
+
+    for (SwerveModule module : swerveModuleSubs) {
+      module.trackDistance();
+      averageDistanceRate += module.getDistanceRate();
+      averageAngle += module.getDesiredAngle();
+    }
+
+    averageDistanceRate /= Constants.SWERVE_MODULE_COUNT;
+    averageAngle /= Constants.SWERVE_MODULE_COUNT;
+
+    // Get x and y rate.
+    double yaw = Math.toRadians(getYaw() + averageAngle);
+    double yawCos = Math.cos(yaw);
+    double yawSin = Math.sin(yaw);
+
+    double x = 0.0;
+    double y = averageDistanceRate;
+    double xRate = -y * yawSin + x * yawCos;
+    double yRate = y * yawCos + x * yawSin;
+
+    //xRate *= averageDistanceRate;
+    //yRate *= averageDistanceRate;
+
+    // Add the rate.
+    position.x += xRate;
+    position.y += yRate;
+  }
+
+  public void resetPosition() {
+    for (SwerveModule module : swerveModuleSubs) {
+      module.resetDistance();
+    }
+
+    position.x = 0.0;
+    position.y = 0.0;
+  }
+
   public void run() {
     // Run the swerve module run methods.
-    for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
-      swerveModuleSubs[i].run();
+    for (SwerveModule module : swerveModuleSubs) {
+      module.run();
     }
+
+    trackPosition();
+    SmartDashboard.putNumber("x", position.x);
+    SmartDashboard.putNumber("y", position.y);
 
     SmartDashboard.putNumber("Yaw", getYaw());
     SmartDashboard.putNumber("Front right distance", getSwerveModuleFromId(Constants.FRONT_RIGHT_MODULE).getDistance());
     SmartDashboard.putNumber("Front left distance", getSwerveModuleFromId(Constants.FRONT_LEFT_MODULE).getDistance());
     SmartDashboard.putNumber("Back right distance", getSwerveModuleFromId(Constants.BACK_RIGHT_MODULE).getDistance());
     SmartDashboard.putNumber("Back left distance", getSwerveModuleFromId(Constants.BACK_LEFT_MODULE).getDistance());
-    SmartDashboard.putNumber("Avg distance", getAvgWheelEncoder());
     SmartDashboard.putNumber("Pitch", getPitch());
     SmartDashboard.putNumber("Roll", getRoll());
   }

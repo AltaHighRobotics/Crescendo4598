@@ -13,6 +13,8 @@ public class DriveCommand extends Command {
   private DriveTrainSub m_driveTrainSub;
   private XboxController m_driveController;
 
+  private boolean doInitGyro = true;
+
   public DriveCommand(DriveTrainSub driveTrainSub, XboxController driveController) {
     m_driveTrainSub = driveTrainSub;
     m_driveController = driveController;
@@ -23,11 +25,19 @@ public class DriveCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    // The gyro wants to be reset during runtime but I only want to do it once.
+    if (doInitGyro) {
+      doInitGyro = false;
+      m_driveTrainSub.resetGyro();
+      m_driveTrainSub.zeroFieldCentric();
+    }
 
     // Get joystick values.
     double flightStickX = m_driveController.getRawAxis(Constants.FLIGHT_STICK_X);

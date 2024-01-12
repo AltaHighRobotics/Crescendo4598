@@ -25,6 +25,10 @@ public class SwerveModule {
   private TalonFX wheelMotor;
   private double wheelDirection = FORWARD;
 
+  private double lastWheelDistance = 0.0;
+  private double distanceRate = 0.0;
+  private double distance = 0.0;
+
   // Turn.
   private ConfigurablePID turnPid;
   private double desiredAngle = 0.0;
@@ -108,7 +112,6 @@ public class SwerveModule {
   //robot worky pls
   //rock paper sciccor shoot
 
-  // TODO: write me pleaz
   public void setDesiredAngle(double desiredAngle) {
     double turnDis = MathTools.angleDis(MathTools.wrapAngle(desiredAngle), getAngle());
 
@@ -129,12 +132,37 @@ public class SwerveModule {
     return this.desiredAngle;
   }
 
-  public double getDistance() {
+  public double getWheelEncoder() {
     return wheelMotor.getPosition().getValue() * Constants.SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE;
   }
 
   public void resetWheelEncoder() {
     wheelMotor.setPosition(0.0);
+  }
+
+  // Tracks how far the wheel goes without a care of the direction.
+  public double trackDistance() {
+    double wheelDistance = getWheelEncoder();
+
+    distanceRate = Math.abs(wheelDistance - lastWheelDistance);
+    distance += distanceRate;
+    lastWheelDistance = wheelDistance;
+
+    return distance;
+  }
+
+  public double getDistanceRate() {
+    return distanceRate;
+  }
+
+  public double getDistance() {
+    return distance;
+  }
+
+  public void resetDistance() {
+    lastWheelDistance = 0.0;
+    distanceRate = 0.0;
+    distance = 0.0;
   }
 
   public double getSpeed() {
