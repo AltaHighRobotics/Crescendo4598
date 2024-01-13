@@ -22,8 +22,7 @@ public final class Constants {
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   // Controller.
-  public static final double DRIVE_CONTROLLER_RIGHT_DEAD_ZONE = 0.05;
-  public static final double DRIVE_CONTROLLER_LEFT_DEAD_ZONE = 0.05;
+  public static final double DRIVE_CONTROLLER_DEAD_ZONE = 0.15;
 
   public static final int RIGHT_STICK_Y = 3;
   public static final int RIGHT_STICK_X = 4;

@@ -100,7 +100,7 @@ public class DriveTrainSub extends SubsystemBase {
     for (SwerveModule module : swerveModuleSubs) {
       module.trackDistance();
       averageDistanceRate += module.getDistanceRate();
-      averageAngle += module.getDesiredAngle();
+      averageAngle += module.getTurnAngle();
     }
 
     averageDistanceRate /= Constants.SWERVE_MODULE_COUNT;
@@ -108,16 +108,8 @@ public class DriveTrainSub extends SubsystemBase {
 
     // Get x and y rate.
     double yaw = Math.toRadians(getYaw() + averageAngle);
-    double yawCos = Math.cos(yaw);
-    double yawSin = Math.sin(yaw);
-
-    double x = 0.0;
-    double y = averageDistanceRate;
-    double xRate = -y * yawSin + x * yawCos;
-    double yRate = y * yawCos + x * yawSin;
-
-    //xRate *= averageDistanceRate;
-    //yRate *= averageDistanceRate;
+    double xRate = -averageDistanceRate * Math.sin(yaw);
+    double yRate = -averageDistanceRate *  Math.cos(yaw);
 
     // Add the rate.
     position.x += xRate;

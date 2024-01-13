@@ -31,7 +31,9 @@ public class SwerveModule {
 
   // Turn.
   private ConfigurablePID turnPid;
+
   private double desiredAngle = 0.0;
+  private double turnAngle = 0.0;
 
   private CANSparkMax turnMotor;
   private RelativeEncoder turnEncoder;
@@ -113,6 +115,7 @@ public class SwerveModule {
   //rock paper sciccor shoot
 
   public void setDesiredAngle(double desiredAngle) {
+    this.turnAngle = desiredAngle;
     double turnDis = MathTools.angleDis(MathTools.wrapAngle(desiredAngle), getAngle());
 
     if (Math.abs(turnDis) > 90.0) {
@@ -130,6 +133,10 @@ public class SwerveModule {
 
   public double getDesiredAngle() {
     return this.desiredAngle;
+  }
+
+  public double getTurnAngle() {
+    return this.turnAngle;
   }
 
   public double getWheelEncoder() {
