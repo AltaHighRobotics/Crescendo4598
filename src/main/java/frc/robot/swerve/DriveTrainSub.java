@@ -3,18 +3,14 @@ package frc.robot.swerve;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.I2C.Port;
-
 import utilities.CartesianVector;
-
 import java.lang.Math;
 import utilities.MathTools;
-
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import utilities.ConfigurablePID;
 
 public class DriveTrainSub extends SubsystemBase {
   /** Creates a new DriveTrainSub. */
@@ -29,19 +25,28 @@ public class DriveTrainSub extends SubsystemBase {
   // Field.
   private Field2d field;
 
+  // Controlling robot with points.
+  private ConfigurablePID positionPID;
+  private ConfigurablePID headingPID;
+
   public DriveTrainSub() {
     // Config swerve modules,
     for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
       swerveModuleSubs[i] = new SwerveModule(Constants.SWERVE_MODULE_CONFIGS[i]);
     }
 
+    // Gyro and field centric.
     navx = new AHRS(Port.kMXP);
     resetGyro();
 
     zeroFieldCentric();
 
+    // Position and field.
     position = new CartesianVector(0.0, 0.0);
     field = new Field2d();
+
+    positionPID = new ConfigurablePID(Constants.SWERVE_POSITION_PID);
+    headingPID = new ConfigurablePID(Constants.SWERVE_HEADING_PID);
   }
 
   public void resetGyro() {
@@ -155,12 +160,49 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("y", position.y);
 
     SmartDashboard.putNumber("Yaw", getYaw());
-    SmartDashboard.putNumber("Front right distance", getSwerveModuleFromId(Constants.FRONT_RIGHT_MODULE).getDistance());
-    SmartDashboard.putNumber("Front left distance", getSwerveModuleFromId(Constants.FRONT_LEFT_MODULE).getDistance());
-    SmartDashboard.putNumber("Back right distance", getSwerveModuleFromId(Constants.BACK_RIGHT_MODULE).getDistance());
-    SmartDashboard.putNumber("Back left distance", getSwerveModuleFromId(Constants.BACK_LEFT_MODULE).getDistance());
     SmartDashboard.putNumber("Pitch", getPitch());
     SmartDashboard.putNumber("Roll", getRoll());
+  }
+
+  // Tell it to go to a position.
+  public boolean driveTo(CartesianVector target) {
+    // Get direction and distance.
+    CartesianVector direction = target.getSubtraction(position);
+    double distance = direction.magnitude2D();
+    direction.normalize();
+
+    // At threhold.
+    if (distance <= Constants.SWERVE_POSITION_THRESHOLD) {
+      drive(0.0, 0.0, 0.0, false, 0.0);
+      return true;
+    }
+
+    // Get speed.
+    double speed = positionPID.runPID(0.0, distance);
+    direction.multiply(speed);
+
+    // Rotate by yaw.
+    // double yaw = Math.toRadians(getFieldCentricYaw());
+    // double angleCos = Math.cos(yaw);
+    // double angleSin = Math.sin(yaw);
+
+    // double temp = direction.y * angleCos + direction.x * angleSin;
+    // direction.x = -direction.y * angleSin + direction.x * angleCos;
+    // direction.y = temp;
+
+    // Drive to point.
+    drive(direction.x, direction.y, 0.0, false, 1.0);
+
+    // Debug.
+    SmartDashboard.putNumber("Drive to speed", speed);
+    SmartDashboard.putNumber("Distance from target", distance);
+
+    return false;
+  }
+
+  public void resetDriveTo() {
+    positionPID.resetValues();
+    headingPID.resetValues();
   }
 
   // Usefull stuff: https://www.chiefdelphi.com/uploads/default/original/3X/e/f/ef10db45f7d65f6d4da874cd26db294c7ad469bb.pdf

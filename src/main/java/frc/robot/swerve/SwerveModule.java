@@ -16,8 +16,6 @@ import utilities.MathTools;
 
 public class SwerveModule {
   /** Creates a new SwerveModuleSub. */
-  private SwerveModuleConfig configuration;
-
   private static final double FORWARD = 1.0;
   private static final double BACKWARD = -1.0;
 
@@ -39,8 +37,6 @@ public class SwerveModule {
   private RelativeEncoder turnEncoder;
 
   public SwerveModule(SwerveModuleConfig config) {
-    configuration = config;
-
     // Wheel motor.
     wheelMotor = new TalonFX(config.wheelMotorId);
 
