@@ -182,7 +182,7 @@ public class DriveTrainSub extends SubsystemBase {
     direction.multiply(speed);
 
     // Rotate by yaw.
-    double yaw = Math.toRadians(getFieldCentricYaw());
+    double yaw = Math.toRadians(getYaw());
     double angleCos = Math.cos(yaw);
     double angleSin = Math.sin(yaw);
 
