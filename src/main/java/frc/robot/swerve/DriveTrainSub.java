@@ -5,12 +5,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 import utilities.CartesianVector;
 
 import java.lang.Math;
 import utilities.MathTools;
+
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public class DriveTrainSub extends SubsystemBase {
   /** Creates a new DriveTrainSub. */
@@ -21,6 +25,9 @@ public class DriveTrainSub extends SubsystemBase {
 
   // Position stuff.
   private CartesianVector position;
+
+  // Field.
+  private Field2d field;
 
   public DriveTrainSub() {
     // Config swerve modules,
@@ -34,6 +41,7 @@ public class DriveTrainSub extends SubsystemBase {
     zeroFieldCentric();
 
     position = new CartesianVector(0.0, 0.0);
+    field = new Field2d();
   }
 
   public void resetGyro() {
@@ -70,7 +78,7 @@ public class DriveTrainSub extends SubsystemBase {
     return swerveModuleSubs;
   }
 
-  private static double[] normalizeSpeeds(double []speeds) {
+  private static double[] normalizeSpeeds(double[] speeds) {
     double[] normalizedSpeeds = speeds.clone();
     double max = normalizedSpeeds[0];
 
@@ -93,27 +101,34 @@ public class DriveTrainSub extends SubsystemBase {
   }
 
   public void trackPosition() {
-    // Get distance rate and angle.
-    double averageDistanceRate = 0.0;
-    double averageAngle = 0.0;
+    // Get rate and angle.
+    double averageXRate = 0.0;
+    double averageYRate = 0.0;
+
+    double yaw = getYaw();
 
     for (SwerveModule module : swerveModuleSubs) {
       module.trackDistance();
-      averageDistanceRate += module.getDistanceRate();
-      averageAngle += module.getTurnAngle();
+
+      double turnAngle = module.getTurnAngle();
+      double angle = Math.toRadians(yaw + turnAngle);
+      double distanceRate = module.getDistanceRate();
+
+      averageXRate += distanceRate * Math.sin(angle);
+      averageYRate += distanceRate * Math.cos(angle);
     }
 
-    averageDistanceRate /= Constants.SWERVE_MODULE_COUNT;
-    averageAngle /= Constants.SWERVE_MODULE_COUNT;
-
-    // Get x and y rate.
-    double yaw = Math.toRadians(getYaw() + averageAngle);
-    double xRate = -averageDistanceRate * Math.sin(yaw);
-    double yRate = -averageDistanceRate *  Math.cos(yaw);
-
     // Add the rate.
-    position.x += xRate;
-    position.y += yRate;
+    position.x += averageXRate / Constants.SWERVE_MODULE_COUNT;
+    position.y += averageYRate / Constants.SWERVE_MODULE_COUNT;
+
+    // Update field.
+    field.setRobotPose(position.x, position.y, new Rotation2d(Math.toRadians(getYaw() + 90.0)));
+    SmartDashboard.putData("field", field);
+  }
+
+  public void setPosition(CartesianVector position) {
+    this.position = position.clone();
   }
 
   public void resetPosition() {
