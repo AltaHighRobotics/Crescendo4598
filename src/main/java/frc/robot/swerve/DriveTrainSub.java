@@ -49,6 +49,10 @@ public class DriveTrainSub extends SubsystemBase {
     navx.zeroYaw();
   }
 
+  public double getFieldCentricYaw() {
+    return getYaw() - fieldCentricOffset;
+  }
+
   public void zeroFieldCentric() {
     fieldCentricOffset = navx.getYaw();
   }
@@ -123,7 +127,7 @@ public class DriveTrainSub extends SubsystemBase {
     position.y += averageYRate / Constants.SWERVE_MODULE_COUNT;
 
     // Update field.
-    field.setRobotPose(position.x, position.y, new Rotation2d(Math.toRadians(getYaw() + 90.0)));
+    field.setRobotPose(position.x, position.y, new Rotation2d(Math.toRadians(-yaw + 90.0)));
     SmartDashboard.putData("field", field);
   }
 
@@ -167,7 +171,7 @@ public class DriveTrainSub extends SubsystemBase {
 
     // Field centric.
     if (fieldCentric) {
-      double yaw = Math.toRadians(getYaw() - fieldCentricOffset);
+      double yaw = Math.toRadians(getFieldCentricYaw());
       double angleCos = Math.cos(yaw);
       double angleSin = Math.sin(yaw);
 
