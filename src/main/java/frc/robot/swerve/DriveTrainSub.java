@@ -178,17 +178,17 @@ public class DriveTrainSub extends SubsystemBase {
     }
 
     // Get speed.
-    double speed = positionPID.runPID(0.0, distance);
+    double speed = -positionPID.runPID(0.0, distance);
     direction.multiply(speed);
 
     // Rotate by yaw.
-    // double yaw = Math.toRadians(getFieldCentricYaw());
-    // double angleCos = Math.cos(yaw);
-    // double angleSin = Math.sin(yaw);
+    double yaw = Math.toRadians(getFieldCentricYaw());
+    double angleCos = Math.cos(yaw);
+    double angleSin = Math.sin(yaw);
 
-    // double temp = direction.y * angleCos + direction.x * angleSin;
-    // direction.x = -direction.y * angleSin + direction.x * angleCos;
-    // direction.y = temp;
+    double temp = direction.y * angleCos + direction.x * angleSin;
+    direction.x = -direction.y * angleSin + direction.x * angleCos;
+    direction.y = temp;
 
     // Drive to point.
     drive(direction.x, direction.y, 0.0, false, 1.0);
