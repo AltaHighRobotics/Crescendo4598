@@ -165,14 +165,15 @@ public class DriveTrainSub extends SubsystemBase {
   }
 
   // Tell it to go to a position.
-  public boolean driveTo(CartesianVector target) {
+  public boolean driveTo(CartesianVector target, double targetHeading) {
     // Get direction and distance.
     CartesianVector direction = target.getSubtraction(position);
     double distance = direction.magnitude2D();
     direction.normalize();
 
     // At threhold.
-    if (distance <= Constants.SWERVE_POSITION_THRESHOLD) {
+    if (distance <= Constants.SWERVE_POSITION_THRESHOLD
+      && Math.abs(headingPID.getError()) <= Constants.SWERVE_HEADING_THRESHOLD) {
       drive(0.0, 0.0, 0.0, false, 0.0);
       return true;
     }
@@ -190,12 +191,16 @@ public class DriveTrainSub extends SubsystemBase {
     direction.x = -direction.y * angleSin + direction.x * angleCos;
     direction.y = temp;
 
+    // Heading.
+    double headingSpeed = -headingPID.runPID(targetHeading, MathTools.makeNonNegAngle(getYaw()));
+
     // Drive to point.
-    drive(direction.x, direction.y, 0.0, false, 1.0);
+    drive(direction.x, direction.y, headingSpeed, false, 1.0);
 
     // Debug.
     SmartDashboard.putNumber("Drive to speed", speed);
     SmartDashboard.putNumber("Distance from target", distance);
+    SmartDashboard.putNumber("Heading speed", headingSpeed);
 
     return false;
   }

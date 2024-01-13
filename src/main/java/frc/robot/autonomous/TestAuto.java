@@ -36,17 +36,19 @@ public class TestAuto extends Command {
 
     switch (stage) {
       case 0:
-        atPosition = m_driveTrainSub.driveTo(new CartesianVector(0.0, 1.2));
+        atPosition = m_driveTrainSub.driveTo(new CartesianVector(0.0, 1.2), 0.0);
 
         if (atPosition) {
+          m_driveTrainSub.resetDriveTo();
           stage = 1;
         }
 
         break;
       case 1:
-        atPosition = m_driveTrainSub.driveTo(new CartesianVector(1.2, 1.2));
+        atPosition = m_driveTrainSub.driveTo(new CartesianVector(0.0, 1.2), 90.0);
 
         if (atPosition) {
+          m_driveTrainSub.resetDriveTo();
           done = true;
         }
 
