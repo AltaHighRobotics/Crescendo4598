@@ -10,8 +10,30 @@ import limelightvision.limelight.frc.ControlMode.*;
 *   Lime Light Class was started by Corey Applegate of Team 3244
 *   Granite City Gearheads. We Hope you Enjoy the Lime Light
 *   Camera. 
+*   Team 4598 added april tag support
 */
+
 public class LimeLight {
+
+    // Used for storing the transform from the 
+    public class LimeLightTransform {
+        public double x;
+        public double y;
+        public double z;
+        public double roll;
+        public double pitch;
+        public double yaw;
+
+        // The network tables returns all the values in a array.
+        public LimeLightTransform(double[] values) {
+            this.x = values[0];
+            this.y = values[1];
+            this.z = values[2];
+            this.roll = values[3];
+            this.pitch = values[4];
+            this.yaw = values[5];
+        }
+    }
 
     private NetworkTable m_table;
     private String m_tableName;
@@ -81,6 +103,52 @@ public class LimeLight {
             return true;
         }
     }
+
+    /**
+     * Returns a transform of the robot.
+     * @return transform
+     */
+    public LimeLightTransform getRobotPosition() {
+        NetworkTableEntry botpose = m_table.getEntry("botpose");
+        return new LimeLightTransform(botpose.getDoubleArray(new double[6]));
+    }
+
+     /**
+      * Returns the transform of the robot from blue station.
+      * @return transform
+      */
+    public LimeLightTransform getRobotPositionBlue() {
+        NetworkTableEntry botpose = m_table.getEntry("botpose_wpiblue");
+        return new LimeLightTransform(botpose.getDoubleArray(new double[6]));
+    }
+
+     /**
+      * Returns the transform of the robot from red station.
+      * @return transform
+      */
+    public LimeLightTransform getRobotPositionRed() {
+        NetworkTableEntry botpose = m_table.getEntry("botpose_wpired");
+        return new LimeLightTransform(botpose.getDoubleArray(new double[6]));
+    }
+
+     /**
+      * Returns the transform of the apriltag relative to the robot
+      * @return transform
+      */
+    public LimeLightTransform getAprilTagPositionRobotRelative() {
+        NetworkTableEntry transform = m_table.getEntry("targetpose_robotspace");
+        return new LimeLightTransform(transform.getDoubleArray(new double[6]));
+    }
+
+    /**
+     * Returns the id of the april tag
+     * @return tag id
+     */
+    public int getAprilTagId() {
+        NetworkTableEntry id = m_table.getEntry("tid");
+        return (int)id.getDouble(0.0);
+    }
+
     /**
      * tx Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
      * @return
