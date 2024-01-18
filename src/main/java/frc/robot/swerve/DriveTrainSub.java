@@ -172,8 +172,11 @@ public class DriveTrainSub extends SubsystemBase {
     direction.normalize();
 
     // At threhold.
+    double heading = MathTools.makeNonNegAngle(getYaw());
+    double headingError = Math.abs(targetHeading - heading);
+
     if (distance <= Constants.SWERVE_POSITION_THRESHOLD
-      && Math.abs(headingPID.getError()) <= Constants.SWERVE_HEADING_THRESHOLD) {
+      && headingError <= Constants.SWERVE_HEADING_THRESHOLD) {
       drive(0.0, 0.0, 0.0, false, 0.0);
       return true;
     }
@@ -192,7 +195,7 @@ public class DriveTrainSub extends SubsystemBase {
     direction.y = temp;
 
     // Heading.
-    double headingSpeed = -headingPID.runPID(targetHeading, MathTools.makeNonNegAngle(getYaw()));
+    double headingSpeed = headingPID.runPID(targetHeading, heading);
 
     // Drive to point.
     drive(direction.x, direction.y, headingSpeed, false, 1.0);
@@ -201,6 +204,7 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("Drive to speed", speed);
     SmartDashboard.putNumber("Distance from target", distance);
     SmartDashboard.putNumber("Heading speed", headingSpeed);
+    SmartDashboard.putNumber("Heading", heading);
 
     return false;
   }

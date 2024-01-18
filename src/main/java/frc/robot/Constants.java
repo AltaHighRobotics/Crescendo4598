@@ -53,7 +53,7 @@ public final class Constants {
   public static final PIDConfiguration SWERVE_MODULE_TURN_PID = new PIDConfiguration(0.012, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, -0.5, 0.5);
 
   public static final PIDConfiguration SWERVE_POSITION_PID = new PIDConfiguration(0.138, 0.0004, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
-  public static final PIDConfiguration SWERVE_HEADING_PID = new PIDConfiguration(0.0027, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
+  public static final PIDConfiguration SWERVE_HEADING_PID = new PIDConfiguration(0.005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
   public static final double SWERVE_POSITION_THRESHOLD = 0.05;
   public static final double SWERVE_HEADING_THRESHOLD = 5.0;
 
