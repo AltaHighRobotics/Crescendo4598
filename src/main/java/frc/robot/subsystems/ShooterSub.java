@@ -24,7 +24,8 @@ private WPI_VictorSPX rightShooter;
 
   public void runShooter()
   {
-    
+    leftShooter.set(VictorSPXControlMode.PercentOutput, Constants.SHOOT_SPEED);
+    rightShooter.set(VictorSPXControlMode.PercentOutput, Constants.SHOOT_SPEED);
   }
 
   @Override
