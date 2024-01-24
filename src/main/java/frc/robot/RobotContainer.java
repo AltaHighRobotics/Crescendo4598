@@ -28,12 +28,11 @@ public class RobotContainer {
 
   // Subsystems.
   private final DriveTrainSub m_driveTrainSub = new DriveTrainSub();
-  private final ShooterSub m_shooterSub = new ShooterSub();
+  private final ShooterAndIntakeSub m_shooterSub = new ShooterAndIntakeSub();
 
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
   private final ResetFieldCentricCommand m_resetGyroCommand = new ResetFieldCentricCommand(m_driveTrainSub);
-  private final ShootCommand m_shootCommand = new ShootCommand(m_shooterSub);
 
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);
