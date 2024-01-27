@@ -10,24 +10,20 @@ import frc.robot.Constants;
 
 public class ShooterAndIntakeSub extends SubsystemBase {
   /** Creates a new ShooterSub. */
-private TalonFX leftShooter;
-private TalonFX rightShooter;
+private TalonFX shooterMotor;
 
   public ShooterAndIntakeSub() {
-    leftShooter = new TalonFX(Constants.LEFT_SHOOTER);
-    rightShooter = new TalonFX(Constants.RIGHT_SHOOTER);
+    shooterMotor = new TalonFX(Constants.SHOOTER_MOTOR);
 
     //Remember to set one of the motors to be inverted.
   }
 
   public void runShooter() {
-    leftShooter.set(Constants.SHOOT_SPEED);
-    rightShooter.set(Constants.SHOOT_SPEED);
+    shooterMotor.set(Constants.SHOOT_SPEED);
   }
 
   public void stopShooter() {
-    leftShooter.stopMotor();
-    rightShooter.stopMotor();
+    shooterMotor.stopMotor();
   }
 
   @Override
