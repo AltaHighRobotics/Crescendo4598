@@ -70,7 +70,7 @@ public class SwerveModule {
   }
 
   public void stopWheelMotor() {
-    wheelMotor.stopMotor();;
+    wheelMotor.stopMotor();
   }
 
   public void setTurnMotor(double speed) {

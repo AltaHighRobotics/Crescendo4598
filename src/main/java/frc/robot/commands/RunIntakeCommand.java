@@ -4,19 +4,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.hal.simulation.ConstBufferCallback;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterAndIntakeSub;
 
-public class ShootCommand extends Command
-{
+public class RunIntakeCommand extends Command {
   private ShooterAndIntakeSub m_shooterAndIntakeSub;
-  /** Creates a new ShootCommand. */
-  public ShootCommand(ShooterAndIntakeSub shooterAndIntakeSub) {
-    // Use addRequirements() here to declare subsystem dependencies.
+
+  public RunIntakeCommand(ShooterAndIntakeSub shooterAndIntakeSub) {
     m_shooterAndIntakeSub = shooterAndIntakeSub;
+
     addRequirements(m_shooterAndIntakeSub);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -26,13 +25,13 @@ public class ShootCommand extends Command
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterAndIntakeSub.setShooterMotor(Constants.SHOOTER_SPEED);
+    m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterAndIntakeSub.stopShooter();
+    m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_STALL_SPEED);
   }
 
   // Returns true when the command should end.
