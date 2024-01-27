@@ -33,7 +33,8 @@ public class RobotContainer {
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
   private final ResetFieldCentricCommand m_resetGyroCommand = new ResetFieldCentricCommand(m_driveTrainSub);
-  private final ShootCommand m_shootCommand = new ShootCommand(m_shooterAndIntakeSub);
+  private final ShootCommand m_shootHighSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_HIGH_SPEED);
+  private final ShootCommand m_shootLowSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_LOW_SPEED);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_shooterAndIntakeSub);
 
   // Autonomous.
@@ -60,12 +61,14 @@ public class RobotContainer {
     // If you don't agree then bring your opinion to your local walmart manager.
     // Define buttons.
     final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 5);
-    final JoystickButton shootButton = new JoystickButton(m_driveController, 1);
+    final JoystickButton shootHighSpeedButton = new JoystickButton(m_driveController, 1);
+    final JoystickButton shootLowSpeedButton = new JoystickButton(m_driveController, 3);
     final JoystickButton runIntakeButton = new JoystickButton(m_driveController, 2);
 
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
-    shootButton.whileTrue(m_shootCommand);
+    shootHighSpeedButton.whileTrue(m_shootHighSpeedCommand);
+    shootLowSpeedButton.whileTrue(m_shootLowSpeedCommand);
     runIntakeButton.whileTrue(m_runIntakeCommand);
   }
 

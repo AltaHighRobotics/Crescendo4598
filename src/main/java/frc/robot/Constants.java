@@ -22,13 +22,12 @@ public final class Constants {
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   //Shooter and Intake.
-  // TODO: Set this funny funny ids.
-  public static final int SHOOTER_MOTOR = 0;
-  public static final int INTAKE_MOTOR = 0;
+  public static final int SHOOTER_MOTOR = 4;
+  public static final int INTAKE_MOTOR = 2;
 
-  public static final double SHOOTER_SPEED = 0.3;
-  public static final double INTAKE_SPEED = 0.3;
-  public static final double INTAKE_STALL_SPEED = 0.1;
+  public static final double SHOOTER_HIGH_SPEED = 0.9;
+  public static final double SHOOTER_LOW_SPEED = 0.22;
+  public static final double INTAKE_SPEED = 0.37;
 
   // Controller.
   public static final double DRIVE_CONTROLLER_DEAD_ZONE = 0.15;

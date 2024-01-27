@@ -31,7 +31,7 @@ public class RunIntakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_STALL_SPEED);
+    m_shooterAndIntakeSub.stopIntake();
   }
 
   // Returns true when the command should end.
