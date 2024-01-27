@@ -11,8 +11,7 @@ public class ShootCommand extends Command
 {
   private ShooterAndIntakeSub m_shooterAndIntakeSub;
   /** Creates a new ShootCommand. */
-  public ShootCommand(ShooterAndIntakeSub shooterAndIntakeSub)
-  {
+  public ShootCommand(ShooterAndIntakeSub shooterAndIntakeSub) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooterAndIntakeSub = shooterAndIntakeSub;
     addRequirements(m_shooterAndIntakeSub);
@@ -24,15 +23,13 @@ public class ShootCommand extends Command
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
-  {
+  public void execute() {
     m_shooterAndIntakeSub.runShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted)
-  {
+  public void end(boolean interrupted) {
     m_shooterAndIntakeSub.stopShooter();
   }
 

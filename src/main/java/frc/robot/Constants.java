@@ -21,9 +21,13 @@ public final class Constants {
   public static final double DRIVE_SPEED = 0.5;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
-  //Shooter.
+  //Shooter and Intake.
   public static final int SHOOTER_MOTOR = 0;//Change.
-  public static final int SHOOT_SPEED = 0;//Change.
+  public static final int FEEDER_MOTOR = 0;//Change.
+  public static final int INTAKE_MOTOR = 0;//Change.
+  public static final double SHOOT_SPEED = 0.0;//Change.
+  public static final double FEED_SPEED = 0.0;//Change.
+  public static final double INTAKE_SPEED = 0.0;//Change.
 
   // Controller.
   public static final double DRIVE_CONTROLLER_DEAD_ZONE = 0.15;
