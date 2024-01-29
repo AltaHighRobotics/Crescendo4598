@@ -29,6 +29,14 @@ public class DriveTrainSub extends SubsystemBase {
   private ConfigurablePID positionPID;
   private ConfigurablePID headingPID;
 
+  // Target position.
+  private CartesianVector targetPosition = new CartesianVector(0.0, 0.0);
+  private double targetHeading = 0.0;
+
+  // Roation stuff for auto driving. Tracks the rotations instead of angle. isn't limited to 0-360.
+  private double lastHeading = 0.0;
+  private double gyroRotation = 0.0;
+
   public DriveTrainSub() {
     // Config swerve modules,
     for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -164,23 +172,26 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("Roll", getRoll());
   }
 
+  public void startDriveTo(CartesianVector targetPosition, double targetHeading) {
+    this.targetPosition = targetPosition.clone();
+
+    positionPID.resetValues();
+    headingPID.resetValues();
+
+    // Rotation setpoint because rotations are weird.
+    double heading = MathTools.makeNonNegAngle(getYaw());
+    lastHeading = heading;
+    gyroRotation = heading;
+
+    this.targetHeading = MathTools.getAngleSetPoint(targetHeading, heading);
+  }
+
   // Tell it to go to a position.
-  public boolean driveTo(CartesianVector target, double targetHeading) {
+  public boolean driveTo() {
     // Get direction and distance.
-    CartesianVector direction = target.getSubtraction(position);
+    CartesianVector direction = targetPosition.getSubtraction(position);
     double distance = direction.magnitude2D();
     direction.normalize();
-
-    // Some heading stuff.
-    double heading = MathTools.makeNonNegAngle(getYaw());
-    double headingDistance = MathTools.angleDis(targetHeading, heading);
-
-     // At threhold.
-    if (distance <= Constants.SWERVE_POSITION_THRESHOLD
-      && Math.abs(headingDistance) <= Constants.SWERVE_HEADING_THRESHOLD) {
-      drive(0.0, 0.0, 0.0, false, 0.0);
-      return true;
-    }
 
     // Get speed.
     double speed = -positionPID.runPID(0.0, distance);
@@ -195,8 +206,20 @@ public class DriveTrainSub extends SubsystemBase {
     direction.x = -direction.y * angleSin + direction.x * angleCos;
     direction.y = temp;
 
-    // Heading.
-    double headingSpeed = headingPID.runPID(targetHeading, heading);
+    // Track rotations.
+    double heading = MathTools.makeNonNegAngle(getYaw());
+    gyroRotation += MathTools.angleDis(heading, lastHeading);
+    lastHeading = heading;
+
+    // Run heading pid.
+    double headingSpeed = headingPID.runPID(targetHeading, gyroRotation);
+
+    // Is at position and heading.
+    if (Math.abs(positionPID.getError()) <= Constants.SWERVE_POSITION_THRESHOLD
+      && Math.abs(headingPID.getError()) <= Constants.SWERVE_HEADING_THRESHOLD) {
+        drive(0.0, 0.0, 0.0, false, 0.0);
+        return true;
+    }
 
     // Drive to point.
     drive(direction.x, direction.y, headingSpeed, false, 1.0);
@@ -204,16 +227,11 @@ public class DriveTrainSub extends SubsystemBase {
     // Debug.
     SmartDashboard.putNumber("Drive to speed", speed);
     SmartDashboard.putNumber("Distance from target", distance);
-    SmartDashboard.putNumber("Heading", heading);
-    SmartDashboard.putNumber("Heading distance", headingDistance);
+    SmartDashboard.putNumber("Heading", gyroRotation);
+    SmartDashboard.putNumber("Heading setpoint", targetHeading);
     SmartDashboard.putNumber("Heading speed", headingSpeed);
 
     return false;
-  }
-
-  public void resetDriveTo() {
-    positionPID.resetValues();
-    headingPID.resetValues();
   }
 
   // Usefull stuff: https://www.chiefdelphi.com/uploads/default/original/3X/e/f/ef10db45f7d65f6d4da874cd26db294c7ad469bb.pdf

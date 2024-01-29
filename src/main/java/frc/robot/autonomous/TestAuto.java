@@ -27,6 +27,9 @@ public class TestAuto extends Command {
   public void initialize() {
     stage = 0;
     done = false;
+
+    // Set first drive to position.
+    m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,20 +39,20 @@ public class TestAuto extends Command {
 
     switch (stage) {
       case 0:
-        atPosition = m_driveTrainSub.driveTo(new CartesianVector(0.0, 1.0), 90.0);
+        atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          m_driveTrainSub.resetDriveTo();
           stage = 1;
           done = true;
+
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 90.0);
         }
 
         break;
       case 1:
-        atPosition = m_driveTrainSub.driveTo(new CartesianVector(0.0, 1.0), 90.0);
+        atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          m_driveTrainSub.resetDriveTo();
           done = true;
         }
 
