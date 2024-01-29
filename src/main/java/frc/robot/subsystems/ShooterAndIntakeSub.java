@@ -17,6 +17,8 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   private TalonFX shooterMotor;
   private TalonFX intakeMotor;
 
+  private double shooterPositionSinceCheck = 0.0;
+
   public ShooterAndIntakeSub() {
     shooterMotor = new TalonFX(Constants.SHOOTER_MOTOR);
     intakeMotor = new TalonFX(Constants.INTAKE_MOTOR);
@@ -26,7 +28,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
     shooterMotor.setInverted(true);
     intakeMotor.setInverted(true);
 
-    //Remember to set one of the motors to be inverted.
+    setShooterPosition(0.0);
   }
 
   public void setShooterMotor(double power) {
@@ -37,10 +39,6 @@ public class ShooterAndIntakeSub extends SubsystemBase {
     intakeMotor.set(power);
   }
 
-  public double getShooterSpeed() {
-    return shooterMotor.getVelocity().getValue();
-  }
-
   public void stopShooter() {
     shooterMotor.stopMotor();
   }
@@ -49,8 +47,28 @@ public class ShooterAndIntakeSub extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
+  public double getShooterSpeed() {
+    return shooterMotor.getVelocity().getValue();
+  }
+
+  public double getShooterPosition() {
+    return shooterMotor.getPosition().getValue();
+  }
+
+  public void setShooterPosition(double position) {
+    shooterMotor.setPosition(position);
+  }
+
+  public void startShooterMoveCheck() {
+    shooterPositionSinceCheck = getShooterPosition();
+  }
+
+  public boolean hasShooterMoved() {
+    return Math.abs(getShooterPosition() - shooterPositionSinceCheck) <= Constants.SHOOTER_MOVE_THRESHOLD;
+  }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Shooter position", getShooterPosition());
   }
 }
