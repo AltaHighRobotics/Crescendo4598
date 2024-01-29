@@ -29,7 +29,15 @@ public final class Constants {
   public static final double SHOOTER_LOW_SPEED = 0.22;
   public static final double INTAKE_SPEED = 0.37;
 
-  public static final double SHOOTER_MOVE_THRESHOLD = 5.0;
+  public static final double SHOOTER_MOVE_THRESHOLD = 0.01;
+
+  public static final double SHOOTER_ENCODER_DISTANCE_PER_PULSE = 16384 * (1.0 / 1.75);
+  public static final double INTAKE_ENCODER_DISTANCE_PER_PULSE = 16384 * (1.0 / 2.0);
+
+  // Little pid pid to move this little intake back (:
+  public static final PIDConfiguration INTAKE_MOVE_PID = new PIDConfiguration(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.37, 0.37);
+  public static final double INTAKE_MOVE_THRESHOLD = 0.01;
+  public static final double INTAKE_MOVE_BACK_BY = 0.5;
 
   // Controller.
   public static final double DRIVE_CONTROLLER_DEAD_ZONE = 0.15;

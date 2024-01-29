@@ -212,6 +212,7 @@ public class ConfigurablePID implements Sendable
 		builder.setSmartDashboardType("ConfigurablePID");
 		builder.addDoubleProperty("Proportional gain", this::getProportionalGain, this::setProportionalGain);
 		builder.addDoubleProperty("Integral gain", this::getIntegralGain, this::setIntegralGain);
+		builder.addDoubleProperty("Derivative gain", this::getDerivativeGain, this::setDerivativeGain);
 	}
 
 	/**
