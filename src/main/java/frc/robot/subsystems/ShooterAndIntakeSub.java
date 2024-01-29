@@ -18,6 +18,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   private TalonFX intakeMotor;
 
   private double shooterPositionSinceCheck = 0.0;
+  private boolean shooterHasMoved = false;
 
   public ShooterAndIntakeSub() {
     shooterMotor = new TalonFX(Constants.SHOOTER_MOTOR);
@@ -61,10 +62,15 @@ public class ShooterAndIntakeSub extends SubsystemBase {
 
   public void startShooterMoveCheck() {
     shooterPositionSinceCheck = getShooterPosition();
+    shooterHasMoved = false;
   }
 
-  public boolean hasShooterMoved() {
-    return Math.abs(getShooterPosition() - shooterPositionSinceCheck) <= Constants.SHOOTER_MOVE_THRESHOLD;
+  public boolean checkIfShooterHasMoved() {
+    if (Math.abs(getShooterPosition() - shooterPositionSinceCheck) <= Constants.SHOOTER_MOVE_THRESHOLD) {
+      shooterHasMoved = true;
+    }
+
+    return shooterHasMoved;
   }
 
   @Override

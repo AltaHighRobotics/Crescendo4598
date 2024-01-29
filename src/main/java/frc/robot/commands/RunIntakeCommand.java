@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShooterAndIntakeSub;
@@ -20,12 +21,16 @@ public class RunIntakeCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_shooterAndIntakeSub.startShooterMoveCheck();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
+
+    SmartDashboard.putBoolean("Has moved", m_shooterAndIntakeSub.checkIfShooterHasMoved());
   }
 
   // Called once the command ends or is interrupted.

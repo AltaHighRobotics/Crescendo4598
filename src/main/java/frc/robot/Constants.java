@@ -29,7 +29,7 @@ public final class Constants {
   public static final double SHOOTER_LOW_SPEED = 0.22;
   public static final double INTAKE_SPEED = 0.37;
 
-  public static final double SHOOTER_MOVE_THRESHOLD = 1.0;
+  public static final double SHOOTER_MOVE_THRESHOLD = 5.0;
 
   // Controller.
   public static final double DRIVE_CONTROLLER_DEAD_ZONE = 0.15;
