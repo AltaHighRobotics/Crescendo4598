@@ -95,19 +95,19 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   }
 
   public boolean moveIntakeBack() {
-    boolean atPosition = false;
-
     // Run motor pid.
-    setIntakeMotor(intakePID.runPID(intakeSetpoint, getIntakePosition()));
+    double power = intakePID.runPID(intakeSetpoint, getIntakePosition());
     SmartDashboard.putNumber("Intake setpoint", intakeSetpoint);
 
     // Is at position.
     if (Math.abs(intakePID.getError()) <= Constants.INTAKE_MOVE_THRESHOLD) {
-      atPosition = true;
       stopIntake();
+      return true;
     }
 
-    return atPosition;
+    setIntakeMotor(power);
+
+    return false;
   }
 
   @Override
