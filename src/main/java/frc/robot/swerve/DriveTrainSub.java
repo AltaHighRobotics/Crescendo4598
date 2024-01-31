@@ -10,6 +10,11 @@ import utilities.CartesianVector;
 import java.lang.Math;
 import utilities.MathTools;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 import utilities.ConfigurablePID;
 
 public class DriveTrainSub extends SubsystemBase {
@@ -95,14 +100,54 @@ public class DriveTrainSub extends SubsystemBase {
     return swerveModuleSubs;
   }
 
-  public void zeroTurnPositions() {
+  public void resetState() {
+    zeroFieldCentric();
+
     for (SwerveModule module : swerveModuleSubs) {
       module.setTurnEncoderPosition(0.0);
     }
   }
 
-  public void saveTurnPositions() {
+  // Saves info like encoder positions and other things I will add.
+  public void saveState() {
     String filePath = "turnPositions.txt";
+
+    try (PrintWriter textWriter = new PrintWriter(filePath)) {
+
+      // Encoder stuff.
+      for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
+        textWriter.println(swerveModuleSubs[i].getTurnEncoderPosition());
+      }
+    } catch (IOException error) {
+      System.out.println(error);
+    }
+  }
+
+  // Loads that same info.
+  public void loadState() {
+    String filePath = "turnPositions.txt";
+    File source = new File(filePath);
+
+    try (Scanner textScanner = new Scanner(source)) {
+
+      // Encoder stuff.
+      for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
+        // Ran out of lines toooo too soon ):
+        if (!textScanner.hasNextLine()) {
+          System.out.println("Turn position save has too few lines");
+          break;
+        }
+
+        // Read value and eat up rest of the line.
+        double encoderPosition = textScanner.nextDouble();
+        textScanner.nextLine();
+
+        // Set it.
+        swerveModuleSubs[i].setTurnEncoderPosition(encoderPosition);
+      }
+    } catch (FileNotFoundException error) {
+      System.out.println(error);
+    }
   }
 
   private static double[] normalizeSpeeds(double[] speeds) {
