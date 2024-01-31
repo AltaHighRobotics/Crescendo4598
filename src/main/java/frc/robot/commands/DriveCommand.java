@@ -8,12 +8,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.swerve.DriveTrainSub;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveCommand extends Command {
   private DriveTrainSub m_driveTrainSub;
   private XboxController m_driveController;
 
   private boolean doInitGyro = true;
+
+  private boolean fieldCentric = true;
 
   public DriveCommand(DriveTrainSub driveTrainSub, XboxController driveController) {
     m_driveTrainSub = driveTrainSub;
@@ -57,11 +60,18 @@ public class DriveCommand extends Command {
     double speed = flightStickY;
     double rotation = flightStickZ;
 
+    // Toggle field centric.
+    if (m_driveController.getRawButtonPressed(7)) {
+      fieldCentric = !fieldCentric;
+    }
+
+    SmartDashboard.putBoolean("Field centric", fieldCentric);
+
     m_driveTrainSub.drive(
       Math.pow(strafe, 2.0) * Math.signum(strafe), 
       -Math.pow(speed, 2.0) * Math.signum(speed), 
       Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
-      true,
+      fieldCentric,
       Constants.DRIVE_SPEED
     );
 

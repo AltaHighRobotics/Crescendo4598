@@ -230,6 +230,12 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("Heading", gyroRotation);
     SmartDashboard.putNumber("Heading setpoint", targetHeading);
     SmartDashboard.putNumber("Heading speed", headingSpeed);
+    SmartDashboard.putNumber("x", position.x);
+    SmartDashboard.putNumber("y", position.y);
+
+    // PID on dashboard.
+    SmartDashboard.putData("Position PID", positionPID);
+    SmartDashboard.putData("Heading PID", headingPID);
 
     return false;
   }
