@@ -102,6 +102,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   public void resetState() {
     zeroFieldCentric();
+    resetPosition();
 
     for (SwerveModule module : swerveModuleSubs) {
       module.setTurnEncoderPosition(0.0);
@@ -110,9 +111,16 @@ public class DriveTrainSub extends SubsystemBase {
 
   // Saves info like encoder positions and other things I will add.
   public void saveState() {
-    String filePath = "turnPositions.txt";
+    String filePath = "driveTrainState.data";
 
     try (PrintWriter textWriter = new PrintWriter(filePath)) {
+
+      // Field centric.
+      textWriter.println(fieldCentricOffset);
+
+      // Position.
+      textWriter.println(position.x);
+      textWriter.println(position.y);
 
       // Encoder stuff.
       for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -125,10 +133,24 @@ public class DriveTrainSub extends SubsystemBase {
 
   // Loads that same info.
   public void loadState() {
-    String filePath = "turnPositions.txt";
+    String filePath = "driveTrainState.data";
     File source = new File(filePath);
 
     try (Scanner textScanner = new Scanner(source)) {
+
+      // Field centric.
+      fieldCentricOffset = textScanner.nextDouble();
+      textScanner.nextLine();
+
+      // Position.
+      position.x = textScanner.nextDouble();
+      textScanner.nextLine();
+      position.y = textScanner.nextDouble();
+      textScanner.nextLine();
+
+      // Debug.
+      System.out.println("Field centric offset: " + fieldCentricOffset);
+      System.out.println("Robot position x: " + position.x + ", y: " + position.y);
 
       // Encoder stuff.
       for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -140,6 +162,7 @@ public class DriveTrainSub extends SubsystemBase {
 
         // Read value and eat up rest of the line.
         double encoderPosition = textScanner.nextDouble();
+        System.out.println("Model #" + i + " position " + encoderPosition);
         textScanner.nextLine();
 
         // Set it.
@@ -208,8 +231,7 @@ public class DriveTrainSub extends SubsystemBase {
       module.resetDistance();
     }
 
-    position.x = 0.0;
-    position.y = 0.0;
+    position.set(0.0, 0.0);
   }
 
   public void run() {
