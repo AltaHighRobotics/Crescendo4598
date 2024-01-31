@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants;
 import frc.robot.autonomous.TestAuto;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -33,17 +34,29 @@ public class RobotContainer {
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
   private final ResetFieldCentricCommand m_resetGyroCommand = new ResetFieldCentricCommand(m_driveTrainSub);
+
   private final ShootCommand m_shootHighSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_HIGH_SPEED);
   private final ShootCommand m_shootLowSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_LOW_SPEED);
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_shooterAndIntakeSub);
+
+  private final SaveDriveTrainStateCommand m_saveDriveTrainStateCommand = new SaveDriveTrainStateCommand(m_driveTrainSub);
+  private final LoadDriveTrainStateCommand m_loadDriveTrainStateCommand = new LoadDriveTrainStateCommand(m_driveTrainSub);
+  private final ResetDriveTrainStateCommand m_resetDriveTrainStateCommand = new ResetDriveTrainStateCommand(m_driveTrainSub);
 
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // Add some buttons to the dash board.
+    SmartDashboard.putData("Save drive train state", m_saveDriveTrainStateCommand);
+    SmartDashboard.putData("Load drive train state", m_loadDriveTrainStateCommand);
+    SmartDashboard.putData("Reset drive train state", m_resetDriveTrainStateCommand);
+
     // Configure the trigger bindings
     configureBindings();
+
+    // Schedule drive command.
     CommandScheduler.getInstance().setDefaultCommand(m_driveTrainSub, m_driveCommand);
   }
 
