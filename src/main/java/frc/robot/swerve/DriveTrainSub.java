@@ -95,6 +95,16 @@ public class DriveTrainSub extends SubsystemBase {
     return swerveModuleSubs;
   }
 
+  public void zeroTurnPositions() {
+    for (SwerveModule module : swerveModuleSubs) {
+      module.setTurnEncoderPosition(0.0);
+    }
+  }
+
+  public void saveTurnPositions() {
+    String filePath = "turnPositions.txt";
+  }
+
   private static double[] normalizeSpeeds(double[] speeds) {
     double[] normalizedSpeeds = speeds.clone();
     double max = normalizedSpeeds[0];

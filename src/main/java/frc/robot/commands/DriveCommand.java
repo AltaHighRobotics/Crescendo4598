@@ -46,6 +46,7 @@ public class DriveCommand extends Command {
     double flightStickX = m_driveController.getRawAxis(Constants.FLIGHT_STICK_X);
     double flightStickY = m_driveController.getRawAxis(Constants.FLIGHT_STICKY_Y);
     double flightStickZ = m_driveController.getRawAxis(Constants.FLIGHT_STICK_Z);
+    double flightStickSlider = m_driveController.getRawAxis(Constants.FLIGHT_STICK_SLIDER);
 
     // Apply dead zones to controller.
     if (Math.abs(flightStickX) < Constants.DRIVE_CONTROLLER_DEAD_ZONE) {
@@ -67,12 +68,16 @@ public class DriveCommand extends Command {
 
     SmartDashboard.putBoolean("Field centric", fieldCentric);
 
+    // Speed mod thingy.
+    double speedMod = -(flightStickSlider - 1.0) / 2.0;
+    SmartDashboard.putNumber("Speed mod", speedMod);
+
     m_driveTrainSub.drive(
       Math.pow(strafe, 2.0) * Math.signum(strafe), 
       -Math.pow(speed, 2.0) * Math.signum(speed), 
       Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
       fieldCentric,
-      Constants.DRIVE_SPEED
+      speedMod * Constants.DRIVE_SPEED
     );
 
     m_driveTrainSub.run();

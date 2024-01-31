@@ -18,7 +18,7 @@ import utilities.PIDConfiguration;
 public final class Constants {
   // Driving.
   public static final int DRIVE_CONTROLLER = 0;
-  public static final double DRIVE_SPEED = 0.5;
+  public static final double DRIVE_SPEED = 0.9;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   //Shooter and Intake.
