@@ -30,27 +30,24 @@ public class ShootCommand extends Command
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooterAndIntakeSub.startIntakeMoveBack();
+    m_shooterAndIntakeSub.startShoot();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_shooterAndIntakeSub.setShooterMotor(speed);
-
-    isMovedBack = m_shooterAndIntakeSub.moveIntakeBack();
-    SmartDashboard.putBoolean("Is intake moved back", isMovedBack);
+    m_shooterAndIntakeSub.runShoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterAndIntakeSub.stopShooter();
+    m_shooterAndIntakeSub.endShoot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isMovedBack;
+    return false;
   }
 }

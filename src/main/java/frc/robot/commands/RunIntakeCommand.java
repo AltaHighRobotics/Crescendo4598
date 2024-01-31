@@ -41,9 +41,6 @@ public class RunIntakeCommand extends Command {
   @Override
   public boolean isFinished() {
     boolean hasMoved = m_shooterAndIntakeSub.checkIfShooterHasMoved();
-
-    SmartDashboard.putBoolean("Intake has moved", hasMoved);
-
     return hasMoved;
   }
 }

@@ -24,6 +24,10 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   private ConfigurablePID intakePID;
   private double intakeSetpoint = 0.0;
 
+  // Shooty shoot.
+  private int shootStage = 0;
+  private long startTime = 0; // Can be used for whatever.
+
   public ShooterAndIntakeSub() {
     shooterMotor = new TalonFX(Constants.SHOOTER_MOTOR);
     intakeMotor = new TalonFX(Constants.INTAKE_MOTOR);
@@ -97,7 +101,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   public boolean moveIntakeBack() {
     // Run motor pid.
     double power = intakePID.runPID(intakeSetpoint, getIntakePosition());
-    SmartDashboard.putNumber("Intake setpoint", intakeSetpoint);
+    //SmartDashboard.putNumber("Intake setpoint", intakeSetpoint);
 
     // Is at position.
     if (Math.abs(intakePID.getError()) <= Constants.INTAKE_MOVE_THRESHOLD) {
@@ -108,6 +112,56 @@ public class ShooterAndIntakeSub extends SubsystemBase {
     setIntakeMotor(power);
 
     return false;
+  }
+
+  // Fancy fancy shoot.
+  public void startShoot(){
+    shootStage = 0;
+
+    stopShooter();
+    stopIntake();
+
+    startIntakeMoveBack();
+  }
+
+  public boolean runShoot(double speed) {
+    boolean atLastStage = false;
+
+    switch (shootStage) {
+      case 0: // Move intake back.
+        boolean movedBack = moveIntakeBack();
+
+        if (movedBack) {
+          shootStage = 1;
+          startTime = System.currentTimeMillis();
+        }
+
+        break;
+      case 1: // Speed up shooter.
+        setShooterMotor(speed);
+
+        if (System.currentTimeMillis() - startTime >= 100) {
+          shootStage = 2;
+        }
+
+        break;
+      case 2: // Load it in to shoot.
+        setIntakeMotor(Constants.INTAKE_SPEED);
+        atLastStage = true;
+        break;
+      default:
+        atLastStage = true;
+        break;
+    }
+
+    SmartDashboard.putNumber("Shoot stage", shootStage);
+
+    return atLastStage;
+  }
+
+  public void endShoot() {
+    stopShooter();
+    stopIntake();
   }
 
   @Override
