@@ -26,7 +26,7 @@ public final class Constants {
   public static final int INTAKE_MOTOR = 2;
 
   public static final double SHOOTER_HIGH_SPEED = 0.9;
-  public static final double SHOOTER_LOW_SPEED = 0.35;
+  public static final double SHOOTER_LOW_SPEED = 0.8;
   public static final double INTAKE_SPEED = 0.37;
 
   public static final double SHOOTER_MOVE_THRESHOLD = 0.05;
