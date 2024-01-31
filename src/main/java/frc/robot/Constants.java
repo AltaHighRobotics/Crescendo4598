@@ -35,8 +35,8 @@ public final class Constants {
   public static final double INTAKE_ENCODER_DISTANCE_PER_PULSE = 1.0 / 2.0;
 
   // Little pid pid to move this little intake back (:
-  public static final PIDConfiguration INTAKE_MOVE_PID = new PIDConfiguration(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.37, 0.37);
-  public static final double INTAKE_MOVE_THRESHOLD = 0.01;
+  public static final PIDConfiguration INTAKE_MOVE_PID = new PIDConfiguration(0.25, 0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.37, 0.37);
+  public static final double INTAKE_MOVE_THRESHOLD = 0.1;
   public static final double INTAKE_MOVE_BACK_BY = 0.5;
 
   // Controller.
