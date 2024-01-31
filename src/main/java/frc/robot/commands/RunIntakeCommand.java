@@ -29,8 +29,6 @@ public class RunIntakeCommand extends Command {
   @Override
   public void execute() {
     m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
-
-    SmartDashboard.putBoolean("Has moved", m_shooterAndIntakeSub.checkIfShooterHasMoved());
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +40,10 @@ public class RunIntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean hasMoved = m_shooterAndIntakeSub.checkIfShooterHasMoved();
+
+    SmartDashboard.putBoolean("Intake has moved", hasMoved);
+
+    return hasMoved;
   }
 }

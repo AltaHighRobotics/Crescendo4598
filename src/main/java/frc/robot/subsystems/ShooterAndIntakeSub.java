@@ -81,7 +81,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   }
 
   public boolean checkIfShooterHasMoved() {
-    if (Math.abs(getShooterPosition() - shooterPositionSinceCheck) <= Constants.SHOOTER_MOVE_THRESHOLD) {
+    if (Math.abs(getShooterPosition() - shooterPositionSinceCheck) >= Constants.SHOOTER_MOVE_THRESHOLD) {
       shooterHasMoved = true;
     }
 
