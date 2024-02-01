@@ -86,6 +86,10 @@ public class SwerveModule {
     stopTurnMotor();
   }
 
+  public ConfigurablePID getTurnPID() {
+    return this.turnPid;
+  }
+
   public void resetTurnEncoder() {
     turnEncoder.setPosition(0.0);
   }

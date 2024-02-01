@@ -155,7 +155,7 @@ public class ConfigurablePID implements Sendable
 	private boolean velocityMode;
 
 	/**
-	 * PIDS that are linked for the senadle.
+	 * PIDS that are linked for the senadle and other things.
 	 * Changing settings in SmartDashboard for this will apply to all linked PIDS.
 	 */
 	private ArrayList<ConfigurablePID> linkedPIDS = new ArrayList<ConfigurablePID>();
@@ -224,6 +224,7 @@ public class ConfigurablePID implements Sendable
 
 	/**
 	 * Adds a PID to link.
+	 * They will be linked recursively so be careful not to create a loop.
 	 * 
 	 * @param linkedPID 	The PID that will be linked.
 	 */

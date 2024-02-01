@@ -48,6 +48,14 @@ public class DriveTrainSub extends SubsystemBase {
       swerveModuleSubs[i] = new SwerveModule(Constants.SWERVE_MODULE_CONFIGS[i]);
     }
 
+    // Link turn PIDS. The first one will be the master.
+    ConfigurablePID module1PID = swerveModuleSubs[0].getTurnPID();
+    module1PID.addLinkedPID(swerveModuleSubs[1].getTurnPID());
+    module1PID.addLinkedPID(swerveModuleSubs[2].getTurnPID());
+    module1PID.addLinkedPID(swerveModuleSubs[3].getTurnPID());
+
+    SmartDashboard.putData("Turn PID", module1PID);
+
     // Gyro and field centric.
     navx = new AHRS(Port.kMXP);
     resetGyro();
@@ -60,6 +68,9 @@ public class DriveTrainSub extends SubsystemBase {
 
     positionPID = new ConfigurablePID(Constants.SWERVE_POSITION_PID);
     headingPID = new ConfigurablePID(Constants.SWERVE_HEADING_PID);
+
+    SmartDashboard.putData("Position PID", positionPID);
+    SmartDashboard.putData("Heading PID", headingPID);
   }
 
   public void resetGyro() {
@@ -309,10 +320,6 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("Heading speed", headingSpeed);
     SmartDashboard.putNumber("x", position.x);
     SmartDashboard.putNumber("y", position.y);
-
-    // PID on dashboard.
-    SmartDashboard.putData("Position PID", positionPID);
-    SmartDashboard.putData("Heading PID", headingPID);
 
     return false;
   }
