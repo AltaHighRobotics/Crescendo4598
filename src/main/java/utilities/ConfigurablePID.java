@@ -2,6 +2,7 @@ package utilities;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import java.util.ArrayList;
 
 /**
  * A PID controller with settings for ranges on all values, and a velocity based
@@ -154,6 +155,12 @@ public class ConfigurablePID implements Sendable
 	private boolean velocityMode;
 
 	/**
+	 * PIDS that are linked for the senadle.
+	 * Changing settings in SmartDashboard for this will apply to all linked PIDS.
+	 */
+	private ArrayList<ConfigurablePID> linkedPIDS = new ArrayList<ConfigurablePID>();
+
+	/**
 	 * Creates a new Configurable PID with default parameters
 	 */
 	public ConfigurablePID()
@@ -213,6 +220,16 @@ public class ConfigurablePID implements Sendable
 		builder.addDoubleProperty("Proportional gain", this::getProportionalGain, this::setProportionalGain);
 		builder.addDoubleProperty("Integral gain", this::getIntegralGain, this::setIntegralGain);
 		builder.addDoubleProperty("Derivative gain", this::getDerivativeGain, this::setDerivativeGain);
+	}
+
+	/**
+	 * Adds a PID to link.
+	 * 
+	 * @param linkedPID 	The PID that will be linked.
+	 */
+	public void addLinkedPID(ConfigurablePID linkedPID)
+	{
+		this.linkedPIDS.add(linkedPID);
 	}
 
 	/**
@@ -433,6 +450,10 @@ public class ConfigurablePID implements Sendable
 	public void setProportionalGain(double newProportionalGain)
 	{
 		proportionalGain = newProportionalGain;
+
+		for (ConfigurablePID linkedPID : linkedPIDS) {
+			linkedPID.setProportionalGain(newProportionalGain);
+		}
 	}
 
 	/**
@@ -463,6 +484,11 @@ public class ConfigurablePID implements Sendable
 	public void setIntegralGain(double newIntegralGain)
 	{
 		integralGain = newIntegralGain;
+
+		for (ConfigurablePID linkedPID : linkedPIDS)
+		{
+			linkedPID.setIntegralGain(newIntegralGain);
+		}
 	}
 
 	/**
@@ -483,6 +509,11 @@ public class ConfigurablePID implements Sendable
 	public void setDerivativeGain(double newDerivativeGain)
 	{
 		derivativeGain = newDerivativeGain;
+
+		for (ConfigurablePID linkedPID : linkedPIDS)
+		{
+			linkedPID.setDerivativeGain(newDerivativeGain);
+		}
 	}
 
 	/**
