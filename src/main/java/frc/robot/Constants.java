@@ -21,6 +21,9 @@ public final class Constants {
   public static final double DRIVE_SPEED = 0.9;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
+  // Solenoid stuff.
+  public static final int COOLER_SOLENOID = 0;
+
   //Shooter and Intake.
   public static final int SHOOTER_MOTOR = 4;
   public static final int INTAKE_MOTOR = 2;

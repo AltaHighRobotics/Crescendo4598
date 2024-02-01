@@ -16,6 +16,9 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Load drive train state": "Command",
+      "/SmartDashboard/Reset drive train state": "Command",
+      "/SmartDashboard/Save drive train state": "Command",
       "/SmartDashboard/field": "Field2d"
     },
     "windows": {
