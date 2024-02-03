@@ -4,6 +4,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import limelightvision.limelight.frc.ControlMode.*;
 
 /**
@@ -15,8 +17,9 @@ import limelightvision.limelight.frc.ControlMode.*;
 
 public class LimeLight {
 
-    // Used for storing the transform from the 
-    public class LimeLightTransform {
+    // Used for storing the transform from network values.
+    // Can be put on SmartDashboard for debugging.
+    public class LimeLightTransform implements Sendable {
         public double x;
         public double y;
         public double z;
@@ -32,6 +35,17 @@ public class LimeLight {
             this.roll = values[3];
             this.pitch = values[4];
             this.yaw = values[5];
+        }
+
+        // Required method for Sendable.
+        public void initSendable(SendableBuilder builder) {
+            builder.setSmartDashboardType("LimeLightTransform");
+            builder.publishConstDouble("x", x);
+            builder.publishConstDouble("y", y);
+            builder.publishConstDouble("z", z);
+            builder.publishConstDouble("roll", roll);
+            builder.publishConstDouble("pitch", pitch);
+            builder.publishConstDouble("yaw", yaw);
         }
     }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import limelightvision.limelight.frc.LimeLight;
@@ -51,6 +52,7 @@ public class VisionSub extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Target found", getIsTargetFound());
+    SmartDashboard.putData("Robot position", getRobotPosition());
   }
 }
