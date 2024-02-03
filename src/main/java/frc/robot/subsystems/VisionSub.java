@@ -53,6 +53,10 @@ public class VisionSub extends SubsystemBase {
     return limeLight.getRobotPositionBlue(); 
   }
 
+  public LimeLightTransform getRobotPositionRed() {
+    return limeLight.getRobotPositionRed();
+  }
+
   public LimeLightTransform getAprilTagPositionRobotRelative() {
     return limeLight.getAprilTagPositionRobotRelative();
   }
