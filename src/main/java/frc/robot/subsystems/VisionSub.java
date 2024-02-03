@@ -9,13 +9,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import limelightvision.limelight.frc.LimeLight;
 import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
+import utilities.CartesianVector;
 
 public class VisionSub extends SubsystemBase {
   private LimeLight limeLight;
 
+  // Used for finding the driveTrain position.
+  private CartesianVector driveTrainPosition;
+  private double driveTrainHeading = 0.0;
+
   public VisionSub() {
     limeLight = new LimeLight();
     setLimelightPipeline(Constants.LIMELIGHT_APRIL_TAG_PIPELINE);
+
+    driveTrainPosition = new CartesianVector(0.0, 0.0);
   }
 
   public void setLimelightPipeline(int pipeline){
@@ -56,6 +63,21 @@ public class VisionSub extends SubsystemBase {
     + transform.y * transform.y + transform.z * transform.z);
 
     return distance;
+  }
+
+  public void findDriveTrainPositionAndHeading() {
+    LimeLightTransform transform = getRobotPosition();
+    driveTrainPosition.x = transform.x;
+    driveTrainPosition.y = transform.y;
+    driveTrainHeading = transform.yaw;
+  }
+
+  public CartesianVector getDriveTrainPosition() {
+    return driveTrainPosition;
+  }
+
+  public double getDriveTrainHeading() {
+    return driveTrainHeading;
   }
 
   @Override
