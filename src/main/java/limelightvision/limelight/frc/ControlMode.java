@@ -40,8 +40,7 @@ public class ControlMode {
             return name();
         }
 
-}
-
+    }
     
     public enum CamMode {
         kvision(0),

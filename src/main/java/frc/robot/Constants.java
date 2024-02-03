@@ -23,7 +23,7 @@ public final class Constants {
 
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;
-
+ 
   //Shooter and Intake.
   public static final int SHOOTER_MOTOR = 4;
   public static final int INTAKE_MOTOR = 2;
@@ -49,6 +49,7 @@ public final class Constants {
   public static final int RIGHT_STICK_X = 4;
   public static final int LEFT_STICK_Y = 1;
   public static final int LEFT_STICK_X = 0;
+  
 
   public static final int FLIGHT_STICK_X = 0;
   public static final int FLIGHT_STICKY_Y = 1;
@@ -94,4 +95,8 @@ public final class Constants {
   public static final double VEHICLE_WHEELBASE = 1.0;
   public static final double VEHICLE_TRACKWIDTH = 1.0;
   public static final double VEHICLE_RADIUS = Math.hypot(VEHICLE_WHEELBASE, VEHICLE_TRACKWIDTH);
+
+  // Limelight.
+  public static final int LIMELIGHT_APRIL_TAG_PIPELINE = 0;
+  public static final int LIMELIGHT_REFLECTIVE_TAPE_PIPELINE = 1;
 }
