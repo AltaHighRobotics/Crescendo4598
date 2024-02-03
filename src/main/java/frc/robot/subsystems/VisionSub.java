@@ -50,6 +50,14 @@ public class VisionSub extends SubsystemBase {
     return limeLight.getAprilTagPositionRobotRelative();
   }
 
+  public double getAprilTagDistance() {
+    LimeLightTransform transform = getAprilTagPositionRobotRelative();
+    double distance = Math.sqrt(transform.x * transform.x 
+    + transform.y * transform.y + transform.z * transform.z);
+
+    return distance;
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Target found", getIsTargetFound());
