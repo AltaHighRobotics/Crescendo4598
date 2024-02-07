@@ -23,16 +23,17 @@ public class ClimbSub extends SubsystemBase {
     climbMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
+  //grab the chain and climb up 
   public  void climb(){
     climbMotor.set(Constants.CLIMB_SPEED);
   }
 
+  //extend the claw to grab the chain
    public void grab(){
     climbMotor.set(-Constants.CLIMB_SPEED);
   }
-
  
-
+  // stop after finishing motion
    public void stop(){
     climbMotor.set(0);
   }
