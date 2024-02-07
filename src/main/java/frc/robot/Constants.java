@@ -21,6 +21,9 @@ public final class Constants {
   public static final double DRIVE_SPEED = 0.9;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
+  //climb
+  public static final int CLIMB_MOTOR = 10;
+  public static final double CLIMB_SPEED = 0.5;
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;
  

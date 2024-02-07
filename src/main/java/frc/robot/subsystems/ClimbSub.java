@@ -13,15 +13,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ClimbSub extends SubsystemBase {
   
   private TalonFX climbMotor;
+  
   /** Creates a new ClimbSub. */
   public ClimbSub() {
+    
 
     climbMotor = new TalonFX(Constants.CLIMB_MOTOR);
 
     climbMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
-  public void climb(){
+  public  void climb(){
     climbMotor.set(Constants.CLIMB_SPEED);
   }
 
@@ -29,10 +31,12 @@ public class ClimbSub extends SubsystemBase {
     climbMotor.set(-Constants.CLIMB_SPEED);
   }
 
+ 
+
    public void stop(){
     climbMotor.set(0);
   }
-  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
