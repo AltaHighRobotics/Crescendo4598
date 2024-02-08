@@ -254,10 +254,7 @@ public class DriveTrainSub extends SubsystemBase {
     trackPosition();
     SmartDashboard.putNumber("x", position.x);
     SmartDashboard.putNumber("y", position.y);
-
     SmartDashboard.putNumber("Yaw", getYaw());
-    SmartDashboard.putNumber("Pitch", getPitch());
-    SmartDashboard.putNumber("Roll", getRoll());
   }
 
   public void startDriveTo(CartesianVector targetPosition, double targetHeading) {

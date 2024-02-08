@@ -30,6 +30,7 @@ public class RobotContainer {
   // Subsystems.
   private final DriveTrainSub m_driveTrainSub = new DriveTrainSub();
   private final ShooterAndIntakeSub m_shooterAndIntakeSub = new ShooterAndIntakeSub();
+  private final VisionSub m_visionSub = new VisionSub();
 
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);

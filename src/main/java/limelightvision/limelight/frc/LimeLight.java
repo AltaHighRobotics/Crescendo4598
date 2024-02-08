@@ -27,6 +27,15 @@ public class LimeLight {
         public double pitch;
         public double yaw;
 
+        public LimeLightTransform() {
+            this.x = 0.0;
+            this.y = 0.0;
+            this.z = 0.0;
+            this.roll = 0.0;
+            this.pitch = 0.0;
+            this.yaw = 0.0;
+        }
+
         // The network tables returns all the values in a array.
         public LimeLightTransform(double[] values) {
             this.x = values[0];
@@ -35,6 +44,15 @@ public class LimeLight {
             this.roll = values[3];
             this.pitch = values[4];
             this.yaw = values[5];
+        }
+
+        public void copyFromTransform(LimeLightTransform transform) {
+            this.x = transform.x;
+            this.y = transform.y;
+            this.z = transform.z;
+            this.roll = transform.roll;
+            this.pitch = transform.pitch;
+            this.yaw = transform.yaw;
         }
 
         // Required method for Sendable.

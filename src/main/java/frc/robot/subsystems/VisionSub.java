@@ -18,11 +18,16 @@ public class VisionSub extends SubsystemBase {
   private CartesianVector driveTrainPosition;
   private double driveTrainHeading = 0.0;
 
+  private LimeLightTransform robotPosition;
+
   public VisionSub() {
     limeLight = new LimeLight();
     setLimelightPipeline(Constants.LIMELIGHT_APRIL_TAG_PIPELINE);
 
     driveTrainPosition = new CartesianVector(0.0, 0.0);
+
+    robotPosition = getRobotPosition();
+    SmartDashboard.putData("Robot position", robotPosition);
   }
 
   public void setLimelightPipeline(int pipeline){
@@ -87,6 +92,6 @@ public class VisionSub extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Target found", getIsTargetFound());
-    SmartDashboard.putData("Robot position", getRobotPosition());
+    robotPosition.copyFromTransform(getRobotPosition());
   }
 }
