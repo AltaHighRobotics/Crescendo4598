@@ -141,13 +141,13 @@ public class ShooterAndIntakeSub extends SubsystemBase {
       case 1: // Speed up shooter.
         setShooterMotor(speed);
 
-        if (System.currentTimeMillis() - startTime >= 100) {
+        if (System.currentTimeMillis() - startTime >= 200) {
           shootStage = 2;
         }
 
         break;
       case 2: // Load it in to shoot.
-        setIntakeMotor(Constants.INTAKE_SPEED);
+        setIntakeMotor(speed);
         atLastStage = true;
         break;
       default:

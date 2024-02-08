@@ -50,14 +50,14 @@ public class ClimberCommand extends Command {
     }
     else if (runToSecond(6, now)){
       m_climbSub.climb();
-      
+
     }
     else{
       m_climbSub.stop();
     }
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the command ends or is interrupted. 
   @Override
   public void end(boolean interrupted) {}
 
