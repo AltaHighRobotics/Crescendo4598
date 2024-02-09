@@ -297,7 +297,7 @@ public class DriveTrainSub extends SubsystemBase {
     lastHeading = heading;
 
     // Run heading pid.
-    double headingSpeed = headingPID.runPID(targetHeading, gyroRotation);
+    double headingSpeed = -headingPID.runPID(targetHeading, gyroRotation);
 
     // Is at position and heading.
     if (Math.abs(positionPID.getError()) <= Constants.SWERVE_POSITION_THRESHOLD

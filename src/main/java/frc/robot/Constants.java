@@ -102,5 +102,4 @@ public final class Constants {
 
   // Limelight.
   public static final int LIMELIGHT_APRIL_TAG_PIPELINE = 0;
-  public static final int LIMELIGHT_REFLECTIVE_TAPE_PIPELINE = 1;
 }

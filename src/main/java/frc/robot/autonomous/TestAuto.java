@@ -43,7 +43,6 @@ public class TestAuto extends Command {
 
         if (atPosition) {
           stage = 1;
-          done = true;
 
           m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 90.0);
         }
