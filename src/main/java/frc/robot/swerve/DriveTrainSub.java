@@ -233,6 +233,10 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putData("field", field);
   }
 
+  public CartesianVector getPosition() {
+    return this.position.clone();
+  }
+
   public void setPosition(CartesianVector position) {
     this.position = position.clone();
   }
