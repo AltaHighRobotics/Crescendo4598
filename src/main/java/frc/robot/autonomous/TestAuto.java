@@ -28,8 +28,10 @@ public class TestAuto extends Command {
     stage = 0;
     done = false;
 
+    m_driveTrainSub.resetGyro();
+
     // Set first drive to position.
-    m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 0.0);
+    m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 90.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,7 +46,7 @@ public class TestAuto extends Command {
         if (atPosition) {
           stage = 1;
 
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 90.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(-1.0, 0.0), 180.0);
         }
 
         break;
