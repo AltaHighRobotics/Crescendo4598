@@ -88,5 +88,10 @@ public class VisionSub extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Target found", getIsTargetFound());
     SmartDashboard.putNumber("Target distance", getAprilTagDistance());
+
+    LimeLightTransform transform = getAprilTagPositionRobotRelative();
+    SmartDashboard.putNumber("Limelight x", transform.x);
+    SmartDashboard.putNumber("Limelight z", transform.z);
+    SmartDashboard.putNumber("Limelight yaw", transform.pitch);
   }
 }

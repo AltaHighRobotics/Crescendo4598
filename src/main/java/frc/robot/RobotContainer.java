@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.autonomous.TestAuto;
+import frc.robot.autonomous.TestLimelightAuto;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -46,6 +48,9 @@ public class RobotContainer {
 
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);
+  private final TestLimelightAuto m_testLimelightAuto = new TestLimelightAuto(m_driveTrainSub, m_visionSub);
+
+  private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -53,6 +58,11 @@ public class RobotContainer {
     SmartDashboard.putData("Save drive train state", m_saveDriveTrainStateCommand);
     SmartDashboard.putData("Load drive train state", m_loadDriveTrainStateCommand);
     SmartDashboard.putData("Reset drive train state", m_resetDriveTrainStateCommand);
+
+    // Auto chooser.
+    m_autoChooser.setDefaultOption("Test", m_testAuto);
+    m_autoChooser.addOption("Test limelight", m_testLimelightAuto);
+    SmartDashboard.putData("Auto chooser", m_autoChooser);
 
     // Configure the trigger bindings
     configureBindings();
@@ -93,6 +103,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_testAuto;
+    return m_autoChooser.getSelected();
   }
 }

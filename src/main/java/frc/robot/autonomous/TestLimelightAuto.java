@@ -33,16 +33,18 @@ public class TestLimelightAuto extends Command {
   @Override
   public void initialize() {
     m_driveTrainSub.resetGyro();
+    m_driveTrainSub.resetPosition();
 
-    LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
-    autoAlignment.start(new CartesianVector(transform.x, transform.y), 0.0);
+    autoAlignment.start(new CartesianVector(0.0, 2.0), 0.0);
     done = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (autoAlignment.run()) {
+    LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
+
+    if (autoAlignment.run(new CartesianVector(transform.x, transform.z))) {
       done = true;
     }
     

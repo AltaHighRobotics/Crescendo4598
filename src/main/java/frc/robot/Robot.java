@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
     compressor = new Compressor(10, PneumaticsModuleType.REVPH);
     compressor.enableDigital();
-    SmartDashboard.putData("Compressor", compressor);
+    //SmartDashboard.putData("Compressor", compressor);
   }
 
   /**

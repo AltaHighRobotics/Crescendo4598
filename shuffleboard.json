@@ -5,47 +5,26 @@
       "autoPopulate": true,
       "autoPopulatePrefix": "SmartDashboard/",
       "widgetPane": {
-        "gridSize": 100.0,
+        "gridSize": 64.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "3,2": {
+          "19,7": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Shooter position",
-              "_title": "Shooter position",
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto chooser",
+              "_title": "Auto chooser",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "5,2": {
-            "size": [
-              4,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight",
-              "_title": "limelight",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
-            }
-          },
-          "0,2": {
+          "13,7": {
             "size": [
               2,
               1
@@ -58,10 +37,87 @@
               "_showGlyph": false
             }
           },
-          "0,1": {
+          "13,6": {
             "size": [
-              1,
+              2,
               1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter position",
+              "_title": "Shooter position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Target found",
+              "_title": "Target found",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Target distance",
+              "_title": "Target distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "19,3": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Swerve state",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/Save drive train state",
+                  "_title": "Save drive train state",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/Load drive train state",
+                  "_title": "Load drive train state",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/Reset drive train state",
+                  "_title": "Reset drive train state",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              ]
+            }
+          },
+          "7,5": {
+            "size": [
+              2,
+              2
             ],
             "content": {
               "_type": "Boolean Box",
@@ -73,9 +129,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "2,1": {
+          "9,5": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -86,10 +142,25 @@
               "_showGlyph": false
             }
           },
-          "0,3": {
+          "7,7": {
             "size": [
-              5,
-              3
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Swerve run enabled",
+              "_title": "Swerve run enabled",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "0,5": {
+            "size": [
+              7,
+              4
             ],
             "content": {
               "_type": "Field",
@@ -102,7 +173,7 @@
               "Visuals/Show Outside Circles": false
             }
           },
-          "9,2": {
+          "9,6": {
             "size": [
               1,
               1
@@ -115,7 +186,7 @@
               "_showGlyph": false
             }
           },
-          "9,3": {
+          "10,6": {
             "size": [
               1,
               1
@@ -128,114 +199,27 @@
               "_showGlyph": false
             }
           },
-          "10,0": {
+          "9,7": {
             "size": [
               2,
-              2
+              1
             ],
             "content": {
-              "_type": "List Layout",
-              "_title": "angle",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Pitch",
-                  "_title": "Pitch",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Roll",
-                  "_title": "Roll",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Yaw",
-                  "_title": "Yaw",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Yaw",
+              "_title": "Yaw",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
-          "7,0": {
+          "16,3": {
             "size": [
-              2,
-              2
+              3,
+              4
             ],
             "content": {
               "_type": "List Layout",
-              "_title": "compressor",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///SmartDashboard/Compressor/Enabled",
-                  "_title": "Compressor/Enabled",
-                  "_glyph": 148,
-                  "_showGlyph": false,
-                  "Colors/Color when true": "#7CFC00FF",
-                  "Colors/Color when false": "#8B0000FF"
-                },
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///SmartDashboard/Compressor/Pressure switch",
-                  "_title": "Compressor/Pressure switch",
-                  "_glyph": 148,
-                  "_showGlyph": false,
-                  "Colors/Color when true": "#7CFC00FF",
-                  "Colors/Color when false": "#8B0000FF"
-                }
-              ]
-            }
-          },
-          "9,4": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "limelight info",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///SmartDashboard/Target found",
-                  "_title": "SmartDashboard/Target found",
-                  "_glyph": 148,
-                  "_showGlyph": false,
-                  "Colors/Color when true": "#7CFC00FF",
-                  "Colors/Color when false": "#8B0000FF"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Target distance",
-                  "_title": "Target distance",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
-          "5,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "limelight network",
+              "_title": "limelight",
               "_glyph": 149,
               "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
@@ -266,113 +250,39 @@
           },
           "0,0": {
             "size": [
-              1,
-              1
+              6,
+              5
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Drive to speed",
-              "_title": "Drive to speed",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "1,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance from target",
-              "_title": "Distance from target",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Heading",
-              "_title": "Heading",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Heading setpoint",
-              "_title": "Heading setpoint",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "4,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Heading speed",
-              "_title": "Heading speed",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "11,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Auto done",
-              "_title": "Auto done",
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "12,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Stage",
-              "_title": "Stage",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "13,4": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Swerve run enabled",
-              "_title": "Swerve run enabled",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
             }
           }
         }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
       }
     }
   ],

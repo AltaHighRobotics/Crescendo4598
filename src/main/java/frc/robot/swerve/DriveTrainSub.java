@@ -51,10 +51,10 @@ public class DriveTrainSub extends SubsystemBase {
     }
 
     // Link turn PIDS. The first one will be the master.
-    ConfigurablePID module1PID = swerveModuleSubs[0].getTurnPID();
-    module1PID.addLinkedPID(swerveModuleSubs[1].getTurnPID());
-    module1PID.addLinkedPID(swerveModuleSubs[2].getTurnPID());
-    module1PID.addLinkedPID(swerveModuleSubs[3].getTurnPID());
+    // ConfigurablePID module1PID = swerveModuleSubs[0].getTurnPID();
+    // module1PID.addLinkedPID(swerveModuleSubs[1].getTurnPID());
+    // module1PID.addLinkedPID(swerveModuleSubs[2].getTurnPID());
+    // module1PID.addLinkedPID(swerveModuleSubs[3].getTurnPID());
 
     //SmartDashboard.putData("Turn PID", module1PID);
 

@@ -19,6 +19,7 @@
       "/SmartDashboard/Load drive train state": "Command",
       "/SmartDashboard/Reset drive train state": "Command",
       "/SmartDashboard/Save drive train state": "Command",
+      "/SmartDashboard/TestLimelightAuto": "Command",
       "/SmartDashboard/field": "Field2d"
     },
     "windows": {
