@@ -44,7 +44,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
 
     // Pid pid stuff lmao.
     intakePID = new ConfigurablePID(Constants.INTAKE_MOVE_PID);
-    SmartDashboard.putData("Intake pid", intakePID);
+    //SmartDashboard.putData("Intake pid", intakePID);
   }
 
   public void setShooterMotor(double power) {

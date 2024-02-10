@@ -56,7 +56,7 @@ public class DriveTrainSub extends SubsystemBase {
     module1PID.addLinkedPID(swerveModuleSubs[2].getTurnPID());
     module1PID.addLinkedPID(swerveModuleSubs[3].getTurnPID());
 
-    SmartDashboard.putData("Turn PID", module1PID);
+    //SmartDashboard.putData("Turn PID", module1PID);
 
     // Gyro and field centric.
     navx = new AHRS(Port.kMXP);
@@ -71,8 +71,8 @@ public class DriveTrainSub extends SubsystemBase {
     positionPID = new ConfigurablePID(Constants.SWERVE_POSITION_PID);
     headingPID = new ConfigurablePID(Constants.SWERVE_HEADING_PID);
 
-    SmartDashboard.putData("Position PID", positionPID);
-    SmartDashboard.putData("Heading PID", headingPID);
+    //SmartDashboard.putData("Position PID", positionPID);
+    //SmartDashboard.putData("Heading PID", headingPID);
   }
 
   public void resetGyro() {
@@ -162,8 +162,8 @@ public class DriveTrainSub extends SubsystemBase {
       textScanner.nextLine();
 
       // Debug.
-      System.out.println("Field centric offset: " + fieldCentricOffset);
-      System.out.println("Robot position x: " + position.x + ", y: " + position.y);
+      // System.out.println("Field centric offset: " + fieldCentricOffset);
+      // System.out.println("Robot position x: " + position.x + ", y: " + position.y);
 
       // Encoder stuff.
       for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -175,7 +175,7 @@ public class DriveTrainSub extends SubsystemBase {
 
         // Read value and eat up rest of the line.
         double encoderPosition = textScanner.nextDouble();
-        System.out.println("Model #" + i + " position " + encoderPosition);
+        //System.out.println("Model #" + i + " position " + encoderPosition);
         textScanner.nextLine();
 
         // Set it.

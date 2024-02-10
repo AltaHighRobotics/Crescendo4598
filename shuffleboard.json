@@ -45,42 +45,6 @@
               "imageHeight": 0
             }
           },
-          "12,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "intake pid",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Intake pid/Proportional gain",
-                  "_title": "Intake pid/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Intake pid/Integral gain",
-                  "_title": "Intake pid/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Intake pid/Derivative gain",
-                  "_title": "Intake pid/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
           "0,2": {
             "size": [
               2,
@@ -92,78 +56,6 @@
               "_title": "Intake position",
               "_glyph": 148,
               "_showGlyph": false
-            }
-          },
-          "10,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "position pid",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position PID/Proportional gain",
-                  "_title": "Position PID/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position PID/Integral gain",
-                  "_title": "Position PID/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position PID/Derivative gain",
-                  "_title": "Position PID/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
-          "14,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "turn pid",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Turn PID/Proportional gain",
-                  "_title": "Turn PID/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Turn PID/Integral gain",
-                  "_title": "Turn PID/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Turn PID/Derivative gain",
-                  "_title": "Turn PID/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
             }
           },
           "0,1": {
@@ -234,78 +126,6 @@
               "_title": "y",
               "_glyph": 148,
               "_showGlyph": false
-            }
-          },
-          "14,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "heading pid",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Heading PID/Proportional gain",
-                  "_title": "Heading PID/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Heading PID/Integral gain",
-                  "_title": "Heading PID/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Heading PID/Derivative gain",
-                  "_title": "Heading PID/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
-          "12,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "swerve state",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Load drive train state",
-                  "_title": "Load drive train state",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Save drive train state",
-                  "_title": "Save drive train state",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Reset drive train state",
-                  "_title": "Reset drive train state",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
             }
           },
           "10,0": {
@@ -536,14 +356,29 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "13,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Swerve run enabled",
+              "_title": "Swerve run enabled",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -4.0,
-    "y": 3.0,
+    "x": -3.0,
+    "y": 2.0,
     "width": 1913.0,
     "height": 846.0
   }
