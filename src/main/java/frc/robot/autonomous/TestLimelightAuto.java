@@ -4,6 +4,7 @@
 
 package frc.robot.autonomous;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.swerve.DriveTrainSub;
 import frc.robot.subsystems.VisionSub;
@@ -15,6 +16,8 @@ public class TestLimelightAuto extends Command {
   private DriveTrainSub m_driveTrainSub;
   private VisionSub m_visionSub;
   private AutoAlignment autoAlignment;
+
+  private boolean done;
 
   public TestLimelightAuto(DriveTrainSub driveTrainSub, VisionSub visionSub) {
     m_driveTrainSub = driveTrainSub;
@@ -33,12 +36,17 @@ public class TestLimelightAuto extends Command {
 
     LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
     autoAlignment.start(new CartesianVector(transform.x, transform.y), 0.0);
+    done = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean done = autoAlignment.run();
+    if (autoAlignment.run()) {
+      done = true;
+    }
+    
+    SmartDashboard.putBoolean("Auto done", done);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +56,6 @@ public class TestLimelightAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
