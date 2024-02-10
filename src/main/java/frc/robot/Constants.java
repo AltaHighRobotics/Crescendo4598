@@ -22,7 +22,8 @@ public final class Constants {
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   //climb
-  public static final int CLIMB_MOTOR = 10;
+  // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!
+  public static final int CLIMB_MOTOR = 0; // TODO: Get the id for this little funny guy.
   public static final double CLIMB_SPEED = 0.5;
   
   // Solenoid stuff.

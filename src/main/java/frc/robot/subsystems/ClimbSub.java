@@ -11,31 +11,28 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimbSub extends SubsystemBase {
-  
   private TalonFX climbMotor;
   
   /** Creates a new ClimbSub. */
   public ClimbSub() {
-    
-
     climbMotor = new TalonFX(Constants.CLIMB_MOTOR);
 
     climbMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   //grab the chain and climb up 
-  public  void climb(){
+  public  void climb() {
     climbMotor.set(Constants.CLIMB_SPEED);
   }
 
   //extend the claw to grab the chain
-   public void grab(){
+   public void grab() {
     climbMotor.set(-Constants.CLIMB_SPEED);
   }
  
   // stop after finishing motion
    public void stop(){
-    climbMotor.set(0);
+    climbMotor.stopMotor();
   }
 
   @Override
