@@ -122,7 +122,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   // Saves info like encoder positions and other things I will add.
   public void saveState() {
-    String filePath = "driveTrainState.data";
+    String filePath = "/home/lvuser/driveTrainState.data";
 
     try (PrintWriter textWriter = new PrintWriter(filePath)) {
 
@@ -144,7 +144,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   // Loads that same info.
   public void loadState() {
-    String filePath = "driveTrainState.data";
+    String filePath = "/home/lvuser/driveTrainState.data";
     File source = new File(filePath);
 
     try (Scanner textScanner = new Scanner(source)) {
