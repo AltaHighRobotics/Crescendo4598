@@ -42,6 +42,8 @@ public class DriveTrainSub extends SubsystemBase {
   private double lastHeading = 0.0;
   private double gyroRotation = 0.0;
 
+  private boolean isRunEnabled = true;
+
   public DriveTrainSub() {
     // Config swerve modules,
     for (int i = 0; i < Constants.SWERVE_MODULE_COUNT; ++i) {
@@ -116,7 +118,7 @@ public class DriveTrainSub extends SubsystemBase {
     resetPosition();
 
     for (SwerveModule module : swerveModuleSubs) {
-      module.setTurnEncoderPosition(0.0);
+      module.resetTurnEncoder();
     }
   }
 
@@ -206,7 +208,7 @@ public class DriveTrainSub extends SubsystemBase {
     return normalizedSpeeds;
   }
 
-  public void trackPosition() {
+  private void trackPosition() {
     // Get rate and angle.
     double averageXRate = 0.0;
     double averageYRate = 0.0;
@@ -249,7 +251,22 @@ public class DriveTrainSub extends SubsystemBase {
     position.set(0.0, 0.0);
   }
 
+  public void setIsRunEnabled(boolean isRunEnabled) {
+    this.isRunEnabled = isRunEnabled;
+  }
+
+  public boolean getIsRunEnabled() {
+    return this.isRunEnabled;
+  }
+
   public void run() {
+    SmartDashboard.putBoolean("Swerve run enabled", isRunEnabled);
+
+    // Disable the run thingy.
+    if (!isRunEnabled) {
+      return;
+    }
+
     // Run the swerve module run methods.
     for (SwerveModule module : swerveModuleSubs) {
       module.run();

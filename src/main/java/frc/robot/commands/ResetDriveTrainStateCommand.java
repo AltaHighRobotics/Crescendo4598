@@ -19,21 +19,26 @@ public class ResetDriveTrainStateCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_driveTrainSub.setIsRunEnabled(false);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrainSub.resetState();
+    m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_driveTrainSub.resetState();
+    m_driveTrainSub.setIsRunEnabled(true);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
