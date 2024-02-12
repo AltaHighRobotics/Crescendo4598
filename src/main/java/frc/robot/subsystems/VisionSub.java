@@ -72,8 +72,8 @@ public class VisionSub extends SubsystemBase {
   public void findDriveTrainPositionAndHeading() {
     LimeLightTransform transform = getRobotPosition();
     driveTrainPosition.x = transform.x;
-    driveTrainPosition.y = transform.y;
-    driveTrainHeading = transform.yaw;
+    driveTrainPosition.y = transform.z;
+    driveTrainHeading = transform.pitch;
   }
 
   public CartesianVector getDriveTrainPosition() {

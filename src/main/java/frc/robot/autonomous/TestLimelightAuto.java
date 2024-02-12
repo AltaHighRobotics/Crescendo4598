@@ -44,8 +44,14 @@ public class TestLimelightAuto extends Command {
   public void execute() {
     LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
 
-    if (autoAlignment.run(new CartesianVector(transform.x, transform.z))) {
-      done = true;
+    double yaw = Math.toRadians(m_driveTrainSub.getYaw());
+
+    if (m_visionSub.getIsTargetFound()) {
+      if (autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch, yaw)) {
+        done = true;
+      }
+    } else {
+      m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
     }
     
     SmartDashboard.putBoolean("Auto done", done);
