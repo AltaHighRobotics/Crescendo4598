@@ -47,7 +47,7 @@ public class TestLimelightAuto extends Command {
     double yaw = Math.toRadians(m_driveTrainSub.getYaw());
 
     if (m_visionSub.getIsTargetFound()) {
-      if (autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch, yaw)) {
+      if (autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch, 0.0)) {
         done = true;
       }
     } else {
