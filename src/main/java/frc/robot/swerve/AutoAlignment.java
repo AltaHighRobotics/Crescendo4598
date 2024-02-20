@@ -44,6 +44,7 @@ public class AutoAlignment {
             return true;
         }
 
+        /*
         switch (stage) {
             case 0: // Align y.
                 boolean atPositionY = alignY(processVarible, robotYaw);
@@ -73,6 +74,13 @@ public class AutoAlignment {
             default:
                 done = true;
                 break;
+        }
+        */
+
+        boolean atPositionX = alignX(processVarible, robotYaw);
+
+        if (atPositionX) {
+            done = true;
         }
 
         SmartDashboard.putNumber("Alignment stage", stage);
