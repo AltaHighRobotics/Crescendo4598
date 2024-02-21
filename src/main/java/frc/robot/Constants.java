@@ -18,13 +18,15 @@ import utilities.PIDConfiguration;
 public final class Constants {
   // Driving.
   public static final int DRIVE_CONTROLLER = 0;
+  public static final int CODRIVER_CONTROLLER = 1;
   public static final double DRIVE_SPEED = 0.9;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!
   public static final int CLIMB_MOTOR = 0; // TODO: Get the id for this little funny guy.
-  public static final double CLIMB_SPEED = 0.5;
+  public static final double CLIMB_UP_SPEED = 0.5;
+  public static final double CLIMB_DOWN_SPEED = -0.5;
   
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;

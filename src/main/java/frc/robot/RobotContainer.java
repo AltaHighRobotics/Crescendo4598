@@ -28,11 +28,13 @@ import frc.robot.swerve.*;
 public class RobotContainer {
   // Controllers.
   private final XboxController m_driveController = new XboxController(Constants.DRIVE_CONTROLLER);
+  private final XboxController m_codriverController = new XboxController(Constants.CODRIVER_CONTROLLER);
 
   // Subsystems.
   private final DriveTrainSub m_driveTrainSub = new DriveTrainSub();
   private final ShooterAndIntakeSub m_shooterAndIntakeSub = new ShooterAndIntakeSub();
   private final VisionSub m_visionSub = new VisionSub();
+  private final ClimbSub m_climbSub = new ClimbSub();
 
   // Commands.
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
@@ -45,6 +47,9 @@ public class RobotContainer {
   private final SaveDriveTrainStateCommand m_saveDriveTrainStateCommand = new SaveDriveTrainStateCommand(m_driveTrainSub);
   private final LoadDriveTrainStateCommand m_loadDriveTrainStateCommand = new LoadDriveTrainStateCommand(m_driveTrainSub);
   private final ResetDriveTrainStateCommand m_resetDriveTrainStateCommand = new ResetDriveTrainStateCommand(m_driveTrainSub);
+
+  private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSub);
+  private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSub);
 
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);

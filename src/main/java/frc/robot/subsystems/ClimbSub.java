@@ -4,35 +4,25 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.Constants;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 public class ClimbSub extends SubsystemBase {
-  private TalonFX climbMotor;
-  
-  /** Creates a new ClimbSub. */
+  private TalonFX m_climbMotor;
+
   public ClimbSub() {
-    climbMotor = new TalonFX(Constants.CLIMB_MOTOR);
-
-    climbMotor.setNeutralMode(NeutralModeValue.Brake);
+    m_climbMotor = new TalonFX(Constants.CLIMB_MOTOR);
+    m_climbMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
-  //grab the chain and climb up 
-  public  void climb() {
-    climbMotor.set(Constants.CLIMB_SPEED);
+  public void setClimbMotor(double power) {
+    m_climbMotor.set(power);
   }
 
-  //extend the claw to grab the chain
-   public void grab() {
-    climbMotor.set(-Constants.CLIMB_SPEED);
-  }
- 
-  // stop after finishing motion
-   public void stop(){
-    climbMotor.stopMotor();
+  public void stopClimbMotor() {
+    m_climbMotor.stopMotor();
   }
 
   @Override
