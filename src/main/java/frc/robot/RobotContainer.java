@@ -93,12 +93,18 @@ public class RobotContainer {
     final JoystickButton shootHighSpeedButton = new JoystickButton(m_driveController, 1);
     final JoystickButton shootLowSpeedButton = new JoystickButton(m_driveController, 3);
     final JoystickButton runIntakeButton = new JoystickButton(m_driveController, 2);
+    final JoystickButton climbUpButton = new JoystickButton(m_codriverController, Constants.CLIMB_UP_BUTTON);
+    final JoystickButton climbDownButton = new JoystickButton(m_codriverController, Constants.CLIMB_DOWN_BUTON);
 
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
     shootHighSpeedButton.whileTrue(m_shootHighSpeedCommand);
     shootLowSpeedButton.whileTrue(m_shootLowSpeedCommand);
     runIntakeButton.whileTrue(m_runIntakeCommand);
+
+    // The based codriver.
+    climbUpButton.whileTrue(m_climbUpCommand);
+    climbDownButton.whileTrue(m_climbDownCommand);
   }
 
   /**
