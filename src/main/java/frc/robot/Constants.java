@@ -24,12 +24,15 @@ public final class Constants {
 
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!
-  public static final int CLIMB_MOTOR = 0; // TODO: Get the id for this little funny guy.
-  public static final double CLIMB_UP_SPEED = 0.5;
-  public static final double CLIMB_DOWN_SPEED = -0.5;
+  public static final int CLIMB_MOTOR = 21; // TODO: Get the id for this little funny guy.
+  public static final double CLIMB_UP_SPEED = 0.9;
+  public static final double CLIMB_DOWN_SPEED = -0.9;
 
-  public static final int CLIMB_UP_BUTTON = 0;
-  public static final int CLIMB_DOWN_BUTON = 0;
+  public static final double CLIMB_LOWER_LIMIT = 0.0;
+  public static final double CLIMB_UPPER_LIMIT = 1505.2763671875;
+
+  public static final int CLIMB_UP_BUTTON = 5;
+  public static final int CLIMB_DOWN_BUTON = 6;
   
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;
