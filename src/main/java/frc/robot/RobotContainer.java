@@ -40,8 +40,11 @@ public class RobotContainer {
   private final DriveCommand m_driveCommand = new DriveCommand(m_driveTrainSub, m_driveController);
   private final ResetFieldCentricCommand m_resetGyroCommand = new ResetFieldCentricCommand(m_driveTrainSub);
 
-  private final ShootCommand m_shootHighSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_HIGH_SPEED);
-  private final ShootCommand m_shootLowSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_LOW_SPEED);
+  private final ShootCommand m_shootRykenSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_RYKEN_SPEED);
+  private final ShootCommand m_shootTurtleSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_TURTLE_SPEED);
+  private final ShootCommand m_shootBuildteamSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_BUILDTEAM_SPEED);
+  private final ShootCommand m_shootEllaSpeedCommand = new ShootCommand(m_shooterAndIntakeSub, Constants.SHOOTER_ELLA_SPEED);
+
   private final RunIntakeCommand m_runIntakeCommand = new RunIntakeCommand(m_shooterAndIntakeSub);
 
   private final SaveDriveTrainStateCommand m_saveDriveTrainStateCommand = new SaveDriveTrainStateCommand(m_driveTrainSub);
@@ -90,21 +93,28 @@ public class RobotContainer {
     // If you don't agree then bring your opinion to your local walmart manager.
     // Define buttons.
     final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 5);
-    final JoystickButton shootHighSpeedButton = new JoystickButton(m_driveController, 1);
-    final JoystickButton shootLowSpeedButton = new JoystickButton(m_driveController, 3);
     final JoystickButton runIntakeButton = new JoystickButton(m_driveController, 2);
+
     final JoystickButton climbUpButton = new JoystickButton(m_codriverController, Constants.CLIMB_UP_BUTTON);
     final JoystickButton climbDownButton = new JoystickButton(m_codriverController, Constants.CLIMB_DOWN_BUTON);
 
+    final JoystickButton rykenSpeedButton = new JoystickButton(m_codriverController, Constants.RYKEN_SPEED_BUTTON);
+    final JoystickButton turtleSpeedButton = new JoystickButton(m_codriverController, Constants.TURTLE_SPEED_BUTTON);
+    final JoystickButton buildteamSpeedButton = new JoystickButton(m_codriverController, Constants.BUILDTEAM_SPEED_BUTTON);
+    final JoystickButton ellaSpeedButton = new JoystickButton(m_codriverController, Constants.ELLA_SPEED_BUTTON);
+
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
-    shootHighSpeedButton.whileTrue(m_shootHighSpeedCommand);
-    shootLowSpeedButton.whileTrue(m_shootLowSpeedCommand);
     runIntakeButton.whileTrue(m_runIntakeCommand);
   
     // The based codriver.
     climbUpButton.whileTrue(m_climbUpCommand);
     climbDownButton.whileTrue(m_climbDownCommand);
+
+    rykenSpeedButton.whileTrue(m_shootRykenSpeedCommand);
+    turtleSpeedButton.whileTrue(m_shootTurtleSpeedCommand);
+    buildteamSpeedButton.whileTrue(m_shootBuildteamSpeedCommand);
+    ellaSpeedButton.whileTrue(m_shootEllaSpeedCommand);
   }
 
   /**

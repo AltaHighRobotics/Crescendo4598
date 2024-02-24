@@ -22,6 +22,15 @@ public final class Constants {
   public static final double DRIVE_SPEED = 0.9;
   public static final double DRIVE_TURN_SPEED = 0.5;
 
+  // Codriver buttons.
+  public static final int CLIMB_UP_BUTTON = 7; // 7/11 hehehe
+  public static final int CLIMB_DOWN_BUTON = 11;
+
+  public static final int RYKEN_SPEED_BUTTON = 5;
+  public static final int TURTLE_SPEED_BUTTON = 6;
+  public static final int BUILDTEAM_SPEED_BUTTON = 4;
+  public static final int ELLA_SPEED_BUTTON = 3;
+
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!
   public static final int CLIMB_MOTOR = 21; // TODO: Get the id for this little funny guy.
@@ -30,9 +39,6 @@ public final class Constants {
 
   public static final double CLIMB_LOWER_LIMIT = 0.0;
   public static final double CLIMB_UPPER_LIMIT = 1505.2763671875;
-
-  public static final int CLIMB_UP_BUTTON = 5;
-  public static final int CLIMB_DOWN_BUTON = 6;
   
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;
@@ -41,8 +47,12 @@ public final class Constants {
   public static final int SHOOTER_MOTOR = 4;
   public static final int INTAKE_MOTOR = 2;
 
-  public static final double SHOOTER_HIGH_SPEED = 0.95;
-  public static final double SHOOTER_LOW_SPEED = 0.75;
+  // The four shooter speeds.
+  public static final double SHOOTER_RYKEN_SPEED = 0.9;
+  public static final double SHOOTER_TURTLE_SPEED = 0.75;
+  public static final double SHOOTER_BUILDTEAM_SPEED = 0.5;
+  public static final double SHOOTER_ELLA_SPEED = 0.25;
+
   public static final double INTAKE_SPEED = 0.6;
 
   public static final double SHOOTER_MOVE_THRESHOLD = 0.05;
