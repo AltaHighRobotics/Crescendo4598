@@ -31,6 +31,8 @@ public final class Constants {
   public static final int BUILDTEAM_SPEED_BUTTON = 4;
   public static final int ELLA_SPEED_BUTTON = 3;
 
+  public static final int CODRIVER_INTAKE_BUTTON = 2;
+
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!
   public static final int CLIMB_MOTOR = 21; // TODO: Get the id for this little funny guy.

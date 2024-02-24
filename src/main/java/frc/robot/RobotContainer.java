@@ -103,6 +103,8 @@ public class RobotContainer {
     final JoystickButton buildteamSpeedButton = new JoystickButton(m_codriverController, Constants.BUILDTEAM_SPEED_BUTTON);
     final JoystickButton ellaSpeedButton = new JoystickButton(m_codriverController, Constants.ELLA_SPEED_BUTTON);
 
+    final JoystickButton codriverRunIntakeButton = new JoystickButton(m_codriverController, Constants.CODRIVER_INTAKE_BUTTON);
+
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
     runIntakeButton.whileTrue(m_runIntakeCommand);
@@ -115,6 +117,8 @@ public class RobotContainer {
     turtleSpeedButton.whileTrue(m_shootTurtleSpeedCommand);
     buildteamSpeedButton.whileTrue(m_shootBuildteamSpeedCommand);
     ellaSpeedButton.whileTrue(m_shootEllaSpeedCommand);
+
+    codriverRunIntakeButton.whileTrue(m_runIntakeCommand);
   }
 
   /**
