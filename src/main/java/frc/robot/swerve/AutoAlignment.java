@@ -39,45 +39,13 @@ public class AutoAlignment {
         done = false;
     }
 
-    public boolean run(CartesianVector processVarible, double heading, double robotYaw) {
+    // Don't forgor to run the drivetrain (:
+    public boolean run(CartesianVector processVarible, double heading) {
         if (done) {
             return true;
         }
 
-        /*
-        switch (stage) {
-            case 0: // Align y.
-                boolean atPositionY = alignY(processVarible, robotYaw);
-
-                if (atPositionY) {
-                    stage = 1;
-                    positionPID.resetValues();
-                }
-
-                break;
-            case 1: // Align x.
-                boolean atPositionX = alignX(processVarible, robotYaw);
-
-                if (atPositionX) {
-                    stage = 2;
-                }
-
-                break;
-            case 2: // Align heading.
-                boolean atHeading = alignHeading(heading);
-
-                if (atHeading) {
-                    done = true;
-                }
-                
-                break;
-            default:
-                done = true;
-                break;
-        }
-        */
-
-        boolean atPositionX = alignX(processVarible, robotYaw);
+        boolean atPositionX = alignPosition(processVarible, heading);
 
         if (atPositionX) {
             done = true;
@@ -88,7 +56,7 @@ public class AutoAlignment {
         return done;
     }
 
-    private boolean alignPosition(CartesianVector processVarible, double robotYaw) {
+    private boolean alignPosition(CartesianVector processVarible, double heading) {
         CartesianVector direction = setpoint.getSubtraction(processVarible);
         double distance = direction.magnitude2D();
         direction.normalize();
@@ -98,71 +66,25 @@ public class AutoAlignment {
         direction.multiply(speed);
 
         // Rotate by yaw.
-        double angleCos = Math.cos(robotYaw);
-        double angleSin = Math.sin(robotYaw);
+        // double angleCos = Math.cos(-heading);
+        // double angleSin = Math.sin(-heading);
 
-        double temp = direction.y * angleCos + direction.x * angleSin;
-        direction.x = -direction.y * angleSin + direction.x * angleCos; 
-        direction.y = temp;
+        // double temp = direction.y * angleCos + direction.x * angleSin;
+        // direction.x = -direction.y * angleSin + direction.x * angleCos; 
+        // direction.y = temp;
+
+        // Heading
+        double headingSpeed = -headingPID.runPID(headingSetpoint, heading);
 
         // At position.
-        if (Math.abs(positionPID.getError()) <= 0.5) {
+        if (Math.abs(positionPID.getError()) <= Constants.LIMLIGHT_POSITION_THRESHOLD &&
+            Math.abs(headingPID.getError()) <= Constants.LIMELIGHT_HEADING_THRESHOLD) {
             m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
             return true;
         }
 
         // Run the drive.
-        m_driveTrainSub.drive(direction.x, direction.y, 0.0, false, 1.0);
-
-        return false;
-    }
-
-    private boolean alignX(CartesianVector processVarible, double robotYaw) {
-        // Get speed.
-        double speed = -positionPID.runPID(setpoint.x, processVarible.x);
-
-        if (Math.abs(positionPID.getError()) <= 0.3) {
-            m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
-            return true;
-        }
-
-        CartesianVector direction = new CartesianVector(speed, 0.0);
-
-         // Rotate by yaw.
-        double angleCos = Math.cos(robotYaw);
-        double angleSin = Math.sin(robotYaw);
-
-        double temp = direction.y * angleCos + direction.x * angleSin;
-        direction.x = -direction.y * angleSin + direction.x * angleCos; 
-        direction.y = temp;
-
-        // Run the drive.
-        m_driveTrainSub.drive(speed, 0.0, 0.0, false, 1.0);
-
-        return false;
-    }
-
-    private boolean alignY(CartesianVector processVarible, double robotYaw) {
-        // Get speed.
-        double speed = -positionPID.runPID(setpoint.y, processVarible.y);
-
-        if (Math.abs(positionPID.getError()) <= 0.3) {
-            m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
-            return true;
-        }
-
-        CartesianVector direction = new CartesianVector(0.0, speed);
-
-         // Rotate by yaw.
-        double angleCos = Math.cos(robotYaw);
-        double angleSin = Math.sin(robotYaw);
-
-        double temp = direction.y * angleCos + direction.x * angleSin;
-        direction.x = -direction.y * angleSin + direction.x * angleCos; 
-        direction.y = temp;
-
-        // Run the drive.
-        m_driveTrainSub.drive(direction.x, direction.y, 0.0, false, 1.0);
+        m_driveTrainSub.drive(direction.x, direction.y, headingSpeed, false, 1.0);
 
         return false;
     }
