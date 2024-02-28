@@ -57,12 +57,17 @@ public class DriveShootFancypantsCommand extends Command {
 
         // Get robo position or end thingy.
         if (m_visionSub.getIsTargetFound()) {
-          m_visionSub.findDriveTrainPositionAndHeading();
-          m_driveTrainSub.setPosition(m_visionSub.getDriveTrainPosition());
-          m_driveTrainSub.setYaw(m_visionSub.getDriveTrainHeading());
+          // m_visionSub.findDriveTrainPositionAndHeading();
+          // m_driveTrainSub.setPosition(m_visionSub.getDriveTrainPosition());
+          // m_driveTrainSub.setYaw(m_visionSub.getDriveTrainHeading());
           stage = 1;
 
-          m_driveTrainSub.startDriveTo(new CartesianVector(14.565203245452071, 8.451857031599006), 0.0);
+          LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
+          m_driveTrainSub.setPosition(new CartesianVector(-transform.x, -transform.z));
+          //m_driveTrainSub.setYaw(transform.pitch);
+          m_driveTrainSub.setYaw(0.0);
+
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
           m_driveTrainSub.setDriverControlEnabled(false);
         } else {
           done = true;

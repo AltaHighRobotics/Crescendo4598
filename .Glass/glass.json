@@ -10,7 +10,9 @@
       "SmartDashboard": {
         "Intake pid": {
           "open": true
-        },
+        }
+      },
+      "limelight": {
         "open": true
       }
     },
