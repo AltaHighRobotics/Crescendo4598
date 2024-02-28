@@ -54,6 +54,9 @@ public class RobotContainer {
   private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSub);
   private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSub);
 
+  private final DriveShootFancypantsCommand m_driveShootFancypantsCommand = new DriveShootFancypantsCommand(
+    m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub, m_codriverController);
+
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);
   private final TestLimelightAuto m_testLimelightAuto = new TestLimelightAuto(m_driveTrainSub, m_visionSub);
@@ -104,6 +107,7 @@ public class RobotContainer {
     final JoystickButton ellaSpeedButton = new JoystickButton(m_codriverController, Constants.ELLA_SPEED_BUTTON);
 
     final JoystickButton codriverRunIntakeButton = new JoystickButton(m_codriverController, Constants.CODRIVER_INTAKE_BUTTON);
+    final JoystickButton autoThingyButton = new JoystickButton(m_codriverController, Constants.CODRIVER_AUTO_THINGY_BUTTON);
 
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
@@ -119,6 +123,7 @@ public class RobotContainer {
     ellaSpeedButton.whileTrue(m_shootEllaSpeedCommand);
 
     codriverRunIntakeButton.whileTrue(m_runIntakeCommand);
+    autoThingyButton.onTrue(m_driveShootFancypantsCommand);
   }
 
   /**

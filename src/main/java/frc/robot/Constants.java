@@ -32,6 +32,7 @@ public final class Constants {
   public static final int ELLA_SPEED_BUTTON = 3;
 
   public static final int CODRIVER_INTAKE_BUTTON = 2;
+  public static final int CODRIVER_AUTO_THINGY_BUTTON = 1;
 
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!

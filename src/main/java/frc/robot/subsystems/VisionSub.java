@@ -71,9 +71,11 @@ public class VisionSub extends SubsystemBase {
 
   public void findDriveTrainPositionAndHeading() {
     LimeLightTransform transform = getRobotPosition();
-    driveTrainPosition.x = transform.x;
-    driveTrainPosition.y = transform.z;
-    driveTrainHeading = transform.pitch;
+    driveTrainPosition.x = transform.x + (16.54175 / 2.0);
+    driveTrainPosition.y = transform.y + (8.21055 / 2.0);
+    driveTrainHeading = 90.0 - transform.yaw;
+
+    // 16.54175x8.21055 is field field sized
   }
 
   public CartesianVector getDriveTrainPosition() {
@@ -89,9 +91,9 @@ public class VisionSub extends SubsystemBase {
     SmartDashboard.putBoolean("Target found", getIsTargetFound());
     SmartDashboard.putNumber("Target distance", getAprilTagDistance());
 
-    LimeLightTransform transform = getAprilTagPositionRobotRelative();
+    LimeLightTransform transform = getRobotPosition();
     SmartDashboard.putNumber("Limelight x", transform.x);
-    SmartDashboard.putNumber("Limelight z", transform.z);
-    SmartDashboard.putNumber("Limelight yaw", transform.pitch);
+    SmartDashboard.putNumber("Limelight z", transform.y);
+    SmartDashboard.putNumber("Limelight yaw", transform.yaw);
   }
 }

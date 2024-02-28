@@ -20,8 +20,9 @@ import utilities.ConfigurablePID;
 public class DriveTrainSub extends SubsystemBase {
   /** Creates a new DriveTrainSub. */
   private SwerveModule[] swerveModuleSubs = new SwerveModule[Constants.SWERVE_MODULE_COUNT];
-  private AHRS navx;
 
+  private AHRS navx;
+  private double yawOffset = 0.0;
   private double fieldCentricOffset = 0.0;
 
   // Position stuff.
@@ -88,20 +89,14 @@ public class DriveTrainSub extends SubsystemBase {
     fieldCentricOffset = navx.getYaw();
   }
 
-  public double getPitch() {
-    return navx.getPitch();
-  }
-
-  public double getRoll() {
-    return navx.getRoll();
-  }
-
   public double getYaw() {
-    return navx.getYaw();
+    return navx.getYaw() + yawOffset;
   }
 
-  public double getHeading() {
-    return navx.getCompassHeading();
+  // *should* work (crying inside. i have no soul. i am not one, i am multiple. we are all multiple.)
+  public void setYaw(double yaw) {
+    yawOffset = navx.getYaw() - yaw;
+    fieldCentricOffset += yawOffset;
   }
 
   // Look in Constants.java for ids.
@@ -240,6 +235,10 @@ public class DriveTrainSub extends SubsystemBase {
   }
 
   public void setPosition(CartesianVector position) {
+    for (SwerveModule module : swerveModuleSubs) {
+      module.resetDistance();
+    }
+    
     this.position = position.clone();
   }
 
