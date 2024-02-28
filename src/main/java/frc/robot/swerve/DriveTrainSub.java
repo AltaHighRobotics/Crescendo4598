@@ -96,7 +96,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   // *should* work (crying inside. i have no soul. i am not one, i am multiple. we are all multiple.)
   public void setYaw(double yaw) {
-    yawOffset = navx.getYaw() - yaw;
+    yawOffset = MathTools.makeNonNegAngle(navx.getYaw()) - yaw;
     fieldCentricOffset += yawOffset;
   }
 
