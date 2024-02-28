@@ -12,6 +12,7 @@ import frc.robot.subsystems.VisionSub;
 import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.swerve.AutoAlignment;
 import frc.robot.Constants;
 
 public class DriveShootFancypantsCommand extends Command {
@@ -21,14 +22,20 @@ public class DriveShootFancypantsCommand extends Command {
   private VisionSub m_visionSub;
   private XboxController m_xboxController;
 
-  int stage;
-  boolean done;
+  private AutoAlignment autoAlignment;
+
+  private int stage;
+  private boolean done;
+
+  private long startTime;
 
   public DriveShootFancypantsCommand(DriveTrainSub driveTrainSub, ShooterAndIntakeSub shooterAndIntakeSub, VisionSub visionSub, XboxController xboxController) {
     m_driveTrainSub = driveTrainSub;
     m_shooterAndIntakeSub = shooterAndIntakeSub;
     m_visionSub = visionSub;
     m_xboxController = xboxController;
+
+    autoAlignment = new AutoAlignment(m_driveTrainSub);
 
     addRequirements(m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,6 +46,11 @@ public class DriveShootFancypantsCommand extends Command {
   public void initialize() {
     stage = 0;
     done = false;
+
+    autoAlignment.start(new CartesianVector(0.0, 0.0), 0.0);
+    m_driveTrainSub.setDriverControlEnabled(false);
+
+    startTime = -1;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,37 +62,49 @@ public class DriveShootFancypantsCommand extends Command {
     //   done = true;
     // }
 
-    boolean atPosition;
+    boolean atPosition = false;
 
     switch (stage) {
-      case 0:
-
-        // Get robo position or end thingy.
+      case 0: // Limelight align thingy
+        // Run autoalignment if camera thingy seeee little pixel thingy
         if (m_visionSub.getIsTargetFound()) {
-          // m_visionSub.findDriveTrainPositionAndHeading();
-          // m_driveTrainSub.setPosition(m_visionSub.getDriveTrainPosition());
-          // m_driveTrainSub.setYaw(m_visionSub.getDriveTrainHeading());
-          stage = 1;
-
           LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
-          m_driveTrainSub.setPosition(new CartesianVector(-transform.x, -transform.z));
-          //m_driveTrainSub.setYaw(transform.pitch);
-          m_driveTrainSub.setYaw(0.0);
-
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
-          m_driveTrainSub.setDriverControlEnabled(false);
+          atPosition = autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch);
         } else {
-          done = true;
+          m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
+        }
+
+        // Next stage
+        if (atPosition) {
+          m_driveTrainSub.resetPosition();
+          m_driveTrainSub.setYaw(0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.5), 0.0);
+          stage = 1;
         }
 
         break;
-      case 1:
+      case 1: // drive align thingy
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          done = true;
+          stage = 2;
+          m_shooterAndIntakeSub.startShoot();
         }
 
+        break;
+      case 2: // shoot
+        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_TURTLE_SPEED);
+
+        // Start timer thingy at final stage.
+        if (isShootFinalStage && startTime == -1) {
+          startTime = System.currentTimeMillis();
+        }
+
+        // We is the done (:
+        if (System.currentTimeMillis() - startTime >= 500) {
+          done = true;
+        }
+        
         break;
       default:
         done = true;
@@ -98,6 +122,7 @@ public class DriveShootFancypantsCommand extends Command {
   public void end(boolean interrupted) {
     m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
     m_driveTrainSub.setDriverControlEnabled(true);
+    m_shooterAndIntakeSub.endShoot();
   }
 
   // Returns true when the command should end.

@@ -10,9 +10,13 @@
       "SmartDashboard": {
         "Intake pid": {
           "open": true
-        }
-      },
-      "limelight": {
+        },
+        "field": {
+          "double[]##v_/SmartDashboard/field/Robot": {
+            "open": true
+          },
+          "open": true
+        },
         "open": true
       }
     },
