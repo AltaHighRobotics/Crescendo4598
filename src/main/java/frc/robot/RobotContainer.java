@@ -123,7 +123,7 @@ public class RobotContainer {
     ellaSpeedButton.whileTrue(m_shootEllaSpeedCommand);
 
     codriverRunIntakeButton.whileTrue(m_runIntakeCommand);
-    autoThingyButton.onTrue(m_driveShootFancypantsCommand);
+    autoThingyButton.whileTrue(m_driveShootFancypantsCommand);
   }
 
   /**

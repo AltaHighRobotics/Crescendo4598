@@ -44,6 +44,7 @@ public class DriveTrainSub extends SubsystemBase {
   private double gyroRotation = 0.0;
 
   private boolean isRunEnabled = true;
+  private boolean driverControlEnabled = true;
 
   public DriveTrainSub() {
     // Config swerve modules,
@@ -275,6 +276,14 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("x", position.x);
     SmartDashboard.putNumber("y", position.y);
     SmartDashboard.putNumber("Yaw", getYaw());
+  }
+
+  public boolean getDriverControlEnabled() {
+    return this.driverControlEnabled;
+  }
+
+  public void setDriverControlEnabled(boolean driverControlEnabled) {
+    this.driverControlEnabled = driverControlEnabled;
   }
 
   public void startDriveTo(CartesianVector targetPosition, double targetHeading) {

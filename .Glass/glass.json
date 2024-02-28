@@ -16,6 +16,7 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto chooser": "String Chooser",
       "/SmartDashboard/Load drive train state": "Command",
       "/SmartDashboard/Reset drive train state": "Command",
       "/SmartDashboard/Save drive train state": "Command",
@@ -46,8 +47,11 @@
     },
     "visible": true
   },
+  "NetworkTables Log": {
+    "visible": true
+  },
   "NetworkTables Settings": {
-    "mode": "Client (NT4)",
+    "mode": "Client (NT3)",
     "serverTeam": "4598"
   }
 }

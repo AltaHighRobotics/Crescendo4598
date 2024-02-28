@@ -71,15 +71,17 @@ public class DriveCommand extends Command {
     double speedMod = -(flightStickSlider - 1.0) / 2.0;
     SmartDashboard.putNumber("Speed mod", speedMod);
 
-    m_driveTrainSub.drive(
-      Math.pow(strafe, 2.0) * Math.signum(strafe), 
-      -Math.pow(speed, 2.0) * Math.signum(speed), 
-      Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
-      fieldCentric,
-      speedMod * Constants.DRIVE_SPEED
-    );
+    if (m_driveTrainSub.getDriverControlEnabled()) {
+      m_driveTrainSub.drive(
+        Math.pow(strafe, 2.0) * Math.signum(strafe), 
+        -Math.pow(speed, 2.0) * Math.signum(speed), 
+        Math.pow(rotation, 2.0) * Math.signum(rotation) * Constants.DRIVE_TURN_SPEED,
+        fieldCentric,
+        speedMod * Constants.DRIVE_SPEED
+      );
 
-    m_driveTrainSub.run();
+      m_driveTrainSub.run();
+    }
   }
 
   // Called once the command ends or is interrupted.

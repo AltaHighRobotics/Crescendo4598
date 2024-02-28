@@ -10,6 +10,7 @@ import frc.robot.swerve.DriveTrainSub;
 import frc.robot.subsystems.ShooterAndIntakeSub;
 import frc.robot.subsystems.VisionSub;
 import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
+import utilities.CartesianVector;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 
@@ -45,9 +46,11 @@ public class DriveShootFancypantsCommand extends Command {
   public void execute() {
 
     // This no no worky.
-    if (m_xboxController.getRawButtonPressed(Constants.CODRIVER_AUTO_THINGY_BUTTON)) {
-      done = true;
-    }
+    // if (m_xboxController.getRawButtonPressed(Constants.CODRIVER_AUTO_THINGY_BUTTON)) {
+    //   done = true;
+    // }
+
+    boolean atPosition;
 
     switch (stage) {
       case 0:
@@ -58,12 +61,20 @@ public class DriveShootFancypantsCommand extends Command {
           m_driveTrainSub.setPosition(m_visionSub.getDriveTrainPosition());
           m_driveTrainSub.setYaw(m_visionSub.getDriveTrainHeading());
           stage = 1;
+
+          m_driveTrainSub.startDriveTo(new CartesianVector(14.565203245452071, 8.451857031599006), 0.0);
+          m_driveTrainSub.setDriverControlEnabled(false);
         } else {
           done = true;
         }
 
         break;
       case 1:
+        atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          done = true;
+        }
 
         break;
       default:
@@ -73,12 +84,15 @@ public class DriveShootFancypantsCommand extends Command {
 
     SmartDashboard.putNumber("Stage", stage);
     SmartDashboard.putBoolean("Auto done", done);
+
+    m_driveTrainSub.run();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
+    m_driveTrainSub.setDriverControlEnabled(true);
   }
 
   // Returns true when the command should end.
