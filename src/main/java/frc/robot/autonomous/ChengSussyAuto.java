@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.swerve.AutoAlignment;
 import frc.robot.subsystems.ShooterAndIntakeSub;
 import frc.robot.swerve.DriveTrainSub;
+import utilities.CartesianVector;
 import frc.robot.subsystems.VisionSub;
 
 public class ChengSussyAuto extends Command {
@@ -37,6 +38,8 @@ public class ChengSussyAuto extends Command {
   public void initialize() {
     stage = 0;
     done = false;
+
+    m_autoAlignment.start(new CartesianVector(0.0, 2.0), 0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,8 +47,22 @@ public class ChengSussyAuto extends Command {
   public void execute() {
     switch(stage){
       case 0: 
-      
+        if(m_visionSub.getIsTargetFound() ){
+          m_autoAlignment.run(new CartesianVector(stage, stage),11 );
+        }
+        stage = 1;
         break;
+      case 1:
+        if(m_visionSub.getIsTargetFound()){
+          
+
+          m_autoAlignment.run(new CartesianVector(stage, stage), m_visionSub.getAprilTagDistance());
+        }
+        if(m_autoAlignment.run(new CartesianVector(stage, stage), 11)){
+          stage = 2;
+        }
+      case 2 :
+
       default:
         done = true;
         break;
