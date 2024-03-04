@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.I2C.Port;
 import utilities.CartesianVector;
@@ -80,6 +82,9 @@ public class DriveTrainSub extends SubsystemBase {
   public void resetGyro() {
     navx.reset();
     navx.zeroYaw();
+
+    fieldCentricOffset = 0.0;
+    yawOffset = 0.0;
   }
 
   public double getFieldCentricYaw() {
@@ -90,13 +95,17 @@ public class DriveTrainSub extends SubsystemBase {
     fieldCentricOffset = navx.getYaw();
   }
 
+  public void zeroFieldCentricReversed() {
+    fieldCentricOffset = 180 - navx.getYaw();
+  }
+
   public double getYaw() {
     return navx.getYaw() + yawOffset;
   }
 
   // *should* work (crying inside. i have no soul. i am not one, i am multiple. we are all multiple.)
   public void setYaw(double yaw) {
-    yawOffset = MathTools.makeNonNegAngle(navx.getYaw()) - yaw;
+    yawOffset = MathTools.angleDis(navx.getYaw(), yaw);
     fieldCentricOffset += yawOffset;
   }
 

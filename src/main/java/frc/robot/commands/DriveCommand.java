@@ -38,7 +38,8 @@ public class DriveCommand extends Command {
     if (doInitGyro) {
       doInitGyro = false;
       m_driveTrainSub.resetGyro();
-      m_driveTrainSub.zeroFieldCentric();
+      //m_driveTrainSub.zeroFieldCentric();
+      m_driveTrainSub.zeroFieldCentricReversed();
     }
 
     // Get joystick values.

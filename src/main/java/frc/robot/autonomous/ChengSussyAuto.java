@@ -4,10 +4,13 @@
 
 package frc.robot.autonomous;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.swerve.AutoAlignment;
+import frc.robot.Constants;
 import frc.robot.subsystems.ShooterAndIntakeSub;
 import frc.robot.swerve.DriveTrainSub;
+import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
 import frc.robot.subsystems.VisionSub;
 
@@ -15,11 +18,14 @@ public class ChengSussyAuto extends Command {
   DriveTrainSub m_driveTrainSub;
   VisionSub m_visionSub;
   ShooterAndIntakeSub m_shooterAndIntakeSub;
-  AutoAlignment m_autoAlignment;
+  AutoAlignment autoAlignment;
   
-  //stage for switch
   private int stage;
   private boolean done;
+
+  private long startTime;
+
+  private boolean shooterMoveCheckStarted;
 
   /** Creates a new chengAutonomousCommand. */
   public ChengSussyAuto(DriveTrainSub driveTrainSub, VisionSub visionSub, ShooterAndIntakeSub shooterAndIntakeSub) {
@@ -27,7 +33,7 @@ public class ChengSussyAuto extends Command {
     m_visionSub = visionSub;
     m_shooterAndIntakeSub = shooterAndIntakeSub;
 
-    m_autoAlignment = new AutoAlignment(m_driveTrainSub);
+    autoAlignment = new AutoAlignment(m_driveTrainSub);
 
     addRequirements(m_driveTrainSub, m_visionSub, m_shooterAndIntakeSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,34 +45,104 @@ public class ChengSussyAuto extends Command {
     stage = 0;
     done = false;
 
-    m_autoAlignment.start(new CartesianVector(0.0, 2.0), 0.0);
+    startTime = -1;
+    m_shooterAndIntakeSub.startShoot();
+
+    shooterMoveCheckStarted = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(stage){
-      case 0: 
-        if(m_visionSub.getIsTargetFound() ){
-          m_autoAlignment.run(new CartesianVector(stage, stage),11 );
+    boolean atPosition = false;
+    boolean isShootFinalStage = false;
+
+    switch(stage) {
+      case 0: // Shoot
+        isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
+
+        // Start timer thingy at final stage.
+        if (isShootFinalStage && startTime == -1) {
+          startTime = System.currentTimeMillis();
         }
-        stage = 1;
+
+        // We is the done (:
+        if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
+          m_shooterAndIntakeSub.endShoot();
+
+          // Drive back a bit.
+          m_driveTrainSub.resetPosition();
+          m_driveTrainSub.resetGyro();
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
+
+          stage = 1;
+        }
+
         break;
-      case 1:
-        if(m_visionSub.getIsTargetFound()){
-          
-
-          m_autoAlignment.run(new CartesianVector(stage, stage), m_visionSub.getAprilTagDistance());
+      case 1: // Back out and try to pick up.
+        atPosition = m_driveTrainSub.driveTo();
+        m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
+        boolean shooterHaveMoved = false;
+        
+        // Wait for shooter to stop before checking if it has moved.
+        if (shooterMoveCheckStarted) { // Check for shooter move and run intake.
+          shooterHaveMoved = m_shooterAndIntakeSub.checkIfShooterHasMoved();
+        } else if (m_shooterAndIntakeSub.getShooterVelocity() <= 0.0000001) {
+          shooterMoveCheckStarted = true;
+          m_shooterAndIntakeSub.startShooterMoveCheck();
         }
-        if(m_autoAlignment.run(new CartesianVector(stage, stage), 11)){
+        
+        // Next stage or end.
+        if (shooterHaveMoved) {
           stage = 2;
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
+          m_shooterAndIntakeSub.stopIntake();
+        } else if (atPosition) {
+          done = true;
         }
-      case 2 :
+      
+        break;
+      case 2: // Drive to shoot.
+        atPosition = m_driveTrainSub.driveTo();
 
+        if (atPosition) {
+          m_shooterAndIntakeSub.startShoot();
+          startTime = -1;
+          stage = 3;
+        }
+
+        break;
+      case 3: // shoot again.
+         isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
+
+        // Start timer thingy at final stage.
+        if (isShootFinalStage && startTime == -1) {
+          startTime = System.currentTimeMillis();
+        }
+
+        // We is the done (:
+        if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
+          m_shooterAndIntakeSub.endShoot();
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
+          stage = 4;
+        }
+
+        break;
+      case 4: // Back out one more time.
+        atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          done = true;
+        }
+
+        break;
       default:
         done = true;
         break;
     }
+
+    SmartDashboard.putNumber("Stage", stage);
+    SmartDashboard.putBoolean("Auto done", done);
 
     m_driveTrainSub.run();
   }
@@ -74,7 +150,9 @@ public class ChengSussyAuto extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
+    m_shooterAndIntakeSub.endShoot();
+    m_shooterAndIntakeSub.stopIntake();
   }
 
   // Returns true when the command should end.

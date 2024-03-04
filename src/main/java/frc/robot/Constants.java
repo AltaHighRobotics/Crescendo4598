@@ -23,16 +23,16 @@ public final class Constants {
   public static final double DRIVE_TURN_SPEED = 0.5;
 
   // Codriver buttons.
-  public static final int CLIMB_UP_BUTTON = 7; // 7/11 hehehe
-  public static final int CLIMB_DOWN_BUTON = 11;
+  public static final int CLIMB_UP_BUTTON = 11; // 7/11 hehehe
+  public static final int CLIMB_DOWN_BUTON = 10;
 
-  public static final int RYKEN_SPEED_BUTTON = 5;
-  public static final int TURTLE_SPEED_BUTTON = 6;
+  public static final int RYKEN_SPEED_BUTTON = 1;
+  public static final int TURTLE_SPEED_BUTTON = 2;
   public static final int BUILDTEAM_SPEED_BUTTON = 4;
   public static final int ELLA_SPEED_BUTTON = 3;
 
-  public static final int CODRIVER_INTAKE_BUTTON = 2;
-  public static final int CODRIVER_AUTO_THINGY_BUTTON = 1;
+  public static final int CODRIVER_INTAKE_BUTTON = 5;
+  public static final int CODRIVER_AUTO_THINGY_BUTTON = 12;
 
   //climb
   // READ THIS!!! Please don't guess ids for motors that don't exist yet! JUST PUT ZERO!!!

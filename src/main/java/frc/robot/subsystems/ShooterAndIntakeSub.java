@@ -75,6 +75,10 @@ public class ShooterAndIntakeSub extends SubsystemBase {
     return shooterMotor.getPosition().getValue() * Constants.SHOOTER_ENCODER_DISTANCE_PER_PULSE;
   }
 
+  public double getShooterVelocity() {
+    return shooterMotor.getVelocity().getValue() * Constants.SHOOTER_ENCODER_DISTANCE_PER_PULSE;
+  }
+
   public void setShooterPosition(double position) {
     shooterMotor.setPosition(position);
   }
@@ -169,5 +173,6 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Intake position", getIntakePosition());
     SmartDashboard.putNumber("Shooter position", getShooterPosition());
+    SmartDashboard.putNumber("Shooter velocity", getShooterVelocity());
   }
 }

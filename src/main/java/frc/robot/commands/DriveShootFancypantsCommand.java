@@ -47,7 +47,7 @@ public class DriveShootFancypantsCommand extends Command {
     stage = 0;
     done = false;
 
-    autoAlignment.start(new CartesianVector(0.0, 0.0), 0.0);
+    autoAlignment.start(new CartesianVector(0.0, 1.0), 0.0);
     m_driveTrainSub.setDriverControlEnabled(false);
 
     startTime = -1;
@@ -78,7 +78,7 @@ public class DriveShootFancypantsCommand extends Command {
         if (atPosition) {
           m_driveTrainSub.resetPosition();
           m_driveTrainSub.setYaw(0.0);
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.5), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.7), 0.0);
           stage = 1;
         }
 
@@ -101,7 +101,7 @@ public class DriveShootFancypantsCommand extends Command {
         }
 
         // We is the done (:
-        if (System.currentTimeMillis() - startTime >= 500) {
+        if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           done = true;
         }
         

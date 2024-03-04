@@ -508,6 +508,19 @@
               "imageWidth": -1,
               "imageHeight": -1
             }
+          },
+          "8,1": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter velocity",
+              "_title": "Shooter velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

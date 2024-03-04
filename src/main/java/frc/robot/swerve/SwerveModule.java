@@ -170,6 +170,7 @@ public class SwerveModule {
     lastWheelDistance = 0.0;
     distanceRate = 0.0;
     distance = 0.0;
+    resetWheelEncoder();
   }
 
   public double getSpeed() {

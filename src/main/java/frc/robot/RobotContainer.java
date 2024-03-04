@@ -5,8 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants;
+import frc.robot.autonomous.ChengSussyAuto;
+import frc.robot.autonomous.NothingAuto;
+import frc.robot.autonomous.ShootOnlyAuto;
 import frc.robot.autonomous.TestAuto;
 import frc.robot.autonomous.TestLimelightAuto;
+
+import java.io.CharArrayWriter;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,12 +60,17 @@ public class RobotContainer {
   private final ClimbUpCommand m_climbUpCommand = new ClimbUpCommand(m_climbSub);
   private final ClimbDownCommand m_climbDownCommand = new ClimbDownCommand(m_climbSub);
 
+  private final RunIntakeBackwardsCommand m_runIntakeBackwardsCommand = new RunIntakeBackwardsCommand(m_shooterAndIntakeSub);
+
   private final DriveShootFancypantsCommand m_driveShootFancypantsCommand = new DriveShootFancypantsCommand(
     m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub, m_codriverController);
 
   // Autonomous.
   private final TestAuto m_testAuto = new TestAuto(m_driveTrainSub);
   private final TestLimelightAuto m_testLimelightAuto = new TestLimelightAuto(m_driveTrainSub, m_visionSub);
+  private final ChengSussyAuto m_chengSussyAuto = new ChengSussyAuto(m_driveTrainSub, m_visionSub, m_shooterAndIntakeSub);
+  private final NothingAuto m_nothingAuto = new NothingAuto();
+  private final ShootOnlyAuto m_shootOnlyAuto = new ShootOnlyAuto(m_shooterAndIntakeSub);
 
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -71,8 +82,11 @@ public class RobotContainer {
     SmartDashboard.putData("Reset drive train state", m_resetDriveTrainStateCommand);
 
     // Auto chooser.
-    m_autoChooser.setDefaultOption("Test", m_testAuto);
+    m_autoChooser.setDefaultOption("Cheng sussy auto", m_chengSussyAuto);
     m_autoChooser.addOption("Test limelight", m_testLimelightAuto);
+    m_autoChooser.addOption("Test", m_testAuto);
+    m_autoChooser.addOption("Sussy nothing", m_nothingAuto);
+    m_autoChooser.addOption("Shoot only auto", m_shootOnlyAuto);
     SmartDashboard.putData("Auto chooser", m_autoChooser);
 
     // Configure the trigger bindings
@@ -97,6 +111,8 @@ public class RobotContainer {
     // Define buttons.
     final JoystickButton resetGyroButton = new JoystickButton(m_driveController, 5);
     final JoystickButton runIntakeButton = new JoystickButton(m_driveController, 2);
+    final JoystickButton autoThingyButton = new JoystickButton(m_driveController, 3);
+    final JoystickButton runIntakeBackwardsButton = new JoystickButton(m_driveController, 4);
 
     final JoystickButton climbUpButton = new JoystickButton(m_codriverController, Constants.CLIMB_UP_BUTTON);
     final JoystickButton climbDownButton = new JoystickButton(m_codriverController, Constants.CLIMB_DOWN_BUTON);
@@ -107,11 +123,12 @@ public class RobotContainer {
     final JoystickButton ellaSpeedButton = new JoystickButton(m_codriverController, Constants.ELLA_SPEED_BUTTON);
 
     final JoystickButton codriverRunIntakeButton = new JoystickButton(m_codriverController, Constants.CODRIVER_INTAKE_BUTTON);
-    final JoystickButton autoThingyButton = new JoystickButton(m_codriverController, Constants.CODRIVER_AUTO_THINGY_BUTTON);
 
     // Bind stuff.
     resetGyroButton.onTrue(m_resetGyroCommand);
     runIntakeButton.whileTrue(m_runIntakeCommand);
+    autoThingyButton.whileTrue(m_driveShootFancypantsCommand);
+    runIntakeBackwardsButton.whileTrue(m_runIntakeBackwardsCommand);
   
     // The based codriver.
     climbUpButton.whileTrue(m_climbUpCommand);
@@ -123,7 +140,6 @@ public class RobotContainer {
     ellaSpeedButton.whileTrue(m_shootEllaSpeedCommand);
 
     codriverRunIntakeButton.whileTrue(m_runIntakeCommand);
-    autoThingyButton.whileTrue(m_driveShootFancypantsCommand);
   }
 
   /**
