@@ -127,4 +127,7 @@ public final class Constants {
 
   public static final double LIMLIGHT_POSITION_THRESHOLD = 0.15;
   public static final double LIMELIGHT_HEADING_THRESHOLD = 5.0;
+
+  public static final PIDConfiguration ALIGNMENT_POSITION_PID = new PIDConfiguration(0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.7, 0.7);
+  public static final PIDConfiguration ALIGNMENT_HEADING_PID = new PIDConfiguration(0.005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
 }

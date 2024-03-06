@@ -21,11 +21,16 @@ public class AutoAlignment {
     public AutoAlignment(DriveTrainSub driveTrainSub) {
         m_driveTrainSub = driveTrainSub;
 
-        positionPID = new ConfigurablePID(Constants.SWERVE_POSITION_PID);
-        headingPID = new ConfigurablePID(Constants.SWERVE_HEADING_PID);
+        positionPID = new ConfigurablePID(Constants.ALIGNMENT_POSITION_PID);
+        headingPID = new ConfigurablePID(Constants.ALIGNMENT_HEADING_PID);
+    }
 
-        SmartDashboard.putData("Position thingy PID", positionPID);
-        SmartDashboard.putData("heading thingy PID", headingPID);
+    public ConfigurablePID getPositionPID() {
+        return positionPID;
+    }
+
+    public ConfigurablePID getHeadingPID() {
+        return headingPID;
     }
 
     public void start(CartesianVector setpoint, double headingSetpoint) {

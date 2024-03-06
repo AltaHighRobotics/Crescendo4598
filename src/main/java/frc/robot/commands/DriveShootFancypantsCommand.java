@@ -37,6 +37,9 @@ public class DriveShootFancypantsCommand extends Command {
 
     autoAlignment = new AutoAlignment(m_driveTrainSub);
 
+    SmartDashboard.putData("Position alignment PID", autoAlignment.getPositionPID());
+    SmartDashboard.putData("Heading alignment PID", autoAlignment.getHeadingPID());
+
     addRequirements(m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -47,8 +50,9 @@ public class DriveShootFancypantsCommand extends Command {
     stage = 0;
     done = false;
 
-    autoAlignment.start(new CartesianVector(0.0, 1.0), 0.0);
+    autoAlignment.start(new CartesianVector(0.0, 0.35), 0.0);
     m_driveTrainSub.setDriverControlEnabled(false);
+    m_shooterAndIntakeSub.startShoot();
 
     startTime = -1;
   }
@@ -76,24 +80,12 @@ public class DriveShootFancypantsCommand extends Command {
 
         // Next stage
         if (atPosition) {
-          m_driveTrainSub.resetPosition();
-          m_driveTrainSub.setYaw(0.0);
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.7), 0.0);
           stage = 1;
         }
 
         break;
-      case 1: // drive align thingy
-        atPosition = m_driveTrainSub.driveTo();
-
-        if (atPosition) {
-          stage = 2;
-          m_shooterAndIntakeSub.startShoot();
-        }
-
-        break;
-      case 2: // shoot
-        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_TURTLE_SPEED);
+      case 1: // shoot
+        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
 
         // Start timer thingy at final stage.
         if (isShootFinalStage && startTime == -1) {
@@ -102,6 +94,7 @@ public class DriveShootFancypantsCommand extends Command {
 
         // We is the done (:
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
+          m_shooterAndIntakeSub.endShoot();
           done = true;
         }
         
