@@ -85,7 +85,7 @@ public class DriveShootFancypantsCommand extends Command {
 
         break;
       case 1: // shoot
-        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
+        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_ELLA_SPEED);
 
         // Start timer thingy at final stage.
         if (isShootFinalStage && startTime == -1) {
