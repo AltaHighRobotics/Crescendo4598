@@ -13,6 +13,8 @@ import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.swerve.AutoAlignment;
+
+import java.util.HashMap;
 import java.util.Map;
 import frc.robot.Constants;
 
@@ -30,7 +32,10 @@ public class DriveShootFancypantsCommand extends Command {
 
   private long startTime;
 
-  public class TagAlignmentInfo {
+  private boolean alignmentStarted;
+
+  // Lots o tags lmao
+  private class TagAlignmentInfo {
     public CartesianVector position;
     public double heading;
 
@@ -40,6 +45,8 @@ public class DriveShootFancypantsCommand extends Command {
     }
   }
 
+  private Map<Integer, TagAlignmentInfo> tagIdInfo;
+
   public DriveShootFancypantsCommand(DriveTrainSub driveTrainSub, ShooterAndIntakeSub shooterAndIntakeSub, VisionSub visionSub, XboxController xboxController) {
     m_driveTrainSub = driveTrainSub;
     m_shooterAndIntakeSub = shooterAndIntakeSub;
@@ -48,8 +55,13 @@ public class DriveShootFancypantsCommand extends Command {
 
     autoAlignment = new AutoAlignment(m_driveTrainSub);
 
-    SmartDashboard.putData("Position alignment PID", autoAlignment.getPositionPID());
-    SmartDashboard.putData("Heading alignment PID", autoAlignment.getHeadingPID());
+    //SmartDashboard.putData("Position alignment PID", autoAlignment.getPositionPID());
+    //SmartDashboard.putData("Heading alignment PID", autoAlignment.getHeadingPID());
+
+    // Tag tag stuff
+    tagIdInfo = new HashMap<>();
+    tagIdInfo.put(5, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
+    tagIdInfo.put(6, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
 
     addRequirements(m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -61,11 +73,12 @@ public class DriveShootFancypantsCommand extends Command {
     stage = 0;
     done = false;
 
-    autoAlignment.start(new CartesianVector(0.0, 0.35), 0.0);
+    //autoAlignment.start(new CartesianVector(0.0, 0.35), 0.0);
     m_driveTrainSub.setDriverControlEnabled(false);
     m_shooterAndIntakeSub.startShoot();
 
     startTime = -1;
+    alignmentStarted = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -83,8 +96,19 @@ public class DriveShootFancypantsCommand extends Command {
       case 0: // Limelight align thingy
         // Run autoalignment if camera thingy seeee little pixel thingy
         if (m_visionSub.getIsTargetFound()) {
-          LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
-          atPosition = autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch);
+
+          if (alignmentStarted) { // Alignment stuff
+            LimeLightTransform transform = m_visionSub.getAprilTagPositionRobotRelative();
+            atPosition = autoAlignment.run(new CartesianVector(transform.x, transform.z), transform.pitch);
+          } else { // Start alignment
+            TagAlignmentInfo tagInfo = tagIdInfo.get(m_visionSub.getID());
+
+            if (tagInfo != null) {
+              alignmentStarted = true;
+              autoAlignment.start(tagInfo.position, tagInfo.heading);
+            }
+          }
+          
         } else {
           m_driveTrainSub.drive(0.0, 0.0, 0.0, false, 0.0);
         }
