@@ -49,6 +49,7 @@ public final class Constants {
   //Shooter and Intake.
   public static final int SHOOTER_MOTOR = 4;
   public static final int INTAKE_MOTOR = 2;
+  public static final int ROOMBA_MOTOR = 27;
 
   // The four shooter speeds.
   public static final double SHOOTER_RYKEN_SPEED = 0.9;

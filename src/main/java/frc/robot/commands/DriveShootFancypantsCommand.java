@@ -13,6 +13,7 @@ import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.swerve.AutoAlignment;
+import java.util.Map;
 import frc.robot.Constants;
 
 public class DriveShootFancypantsCommand extends Command {
@@ -28,6 +29,16 @@ public class DriveShootFancypantsCommand extends Command {
   private boolean done;
 
   private long startTime;
+
+  public class TagAlignmentInfo {
+    public CartesianVector position;
+    public double heading;
+
+    public TagAlignmentInfo(CartesianVector position, double heading) {
+      this.position = position;
+      this.heading = heading;
+    }
+  }
 
   public DriveShootFancypantsCommand(DriveTrainSub driveTrainSub, ShooterAndIntakeSub shooterAndIntakeSub, VisionSub visionSub, XboxController xboxController) {
     m_driveTrainSub = driveTrainSub;

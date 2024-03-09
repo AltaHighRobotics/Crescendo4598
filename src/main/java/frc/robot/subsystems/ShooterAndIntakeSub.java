@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import frc.robot.Constants;
 import utilities.ConfigurablePID;
 
@@ -17,6 +19,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   /** Creates a new ShooterSub. */
   private TalonFX shooterMotor;
   private TalonFX intakeMotor;
+  private WPI_VictorSPX roombaMotor;
 
   private double shooterPositionSinceCheck = 0.0;
   private boolean shooterHasMoved = false;
@@ -31,6 +34,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
   public ShooterAndIntakeSub() {
     shooterMotor = new TalonFX(Constants.SHOOTER_MOTOR);
     intakeMotor = new TalonFX(Constants.INTAKE_MOTOR);
+    roombaMotor = new WPI_VictorSPX(Constants.ROOMBA_MOTOR);
 
     // Motor settings.
     shooterMotor.setNeutralMode(NeutralModeValue.Brake);
@@ -53,6 +57,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
 
   public void setIntakeMotor(double power) {
     intakeMotor.set(power);
+    roombaMotor.set(VictorSPXControlMode.PercentOutput, power);
   }
 
   public void stopShooter() {
@@ -61,6 +66,7 @@ public class ShooterAndIntakeSub extends SubsystemBase {
 
   public void stopIntake() {
     intakeMotor.stopMotor();
+    roombaMotor.neutralOutput();
   }
 
   public double getIntakePosition() {
