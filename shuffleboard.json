@@ -377,42 +377,6 @@
               "_showGlyph": false
             }
           },
-          "12,1": {
-            "size": [
-              2,
-              4
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "heading thingy thing",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/heading thingy PID/Proportional gain",
-                  "_title": "heading thingy PID/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/heading thingy PID/Integral gain",
-                  "_title": "heading thingy PID/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/heading thingy PID/Derivative gain",
-                  "_title": "heading thingy PID/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
-            }
-          },
           "17,2": {
             "size": [
               2,
@@ -424,42 +388,6 @@
               "_title": "Alignment stage",
               "_glyph": 148,
               "_showGlyph": false
-            }
-          },
-          "11,5": {
-            "size": [
-              3,
-              4
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "posi5ion thingy thing",
-              "_glyph": 149,
-              "_showGlyph": false,
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position thingy PID/Proportional gain",
-                  "_title": "Position thingy PID/Proportional gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position thingy PID/Integral gain",
-                  "_title": "Position thingy PID/Integral gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Position thingy PID/Derivative gain",
-                  "_title": "Position thingy PID/Derivative gain",
-                  "_glyph": 148,
-                  "_showGlyph": false
-                }
-              ]
             }
           },
           "15,1": {
@@ -520,6 +448,92 @@
               "_title": "Shooter velocity",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "11,2": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "SUS",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Position PID/Proportional gain",
+                  "_title": "Position PID/Proportional gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Position PID/Integral gain",
+                  "_title": "Position PID/Integral gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Position PID/Derivative gain",
+                  "_title": "Position PID/Derivative gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              ]
+            }
+          },
+          "21,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "11,5": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "AMOUNGUS",
+              "_glyph": 149,
+              "_showGlyph": false,
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Heading PID/Proportional gain",
+                  "_title": "Heading PID/Proportional gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Heading PID/Integral gain",
+                  "_title": "Heading PID/Integral gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Heading PID/Derivative gain",
+                  "_title": "Heading PID/Derivative gain",
+                  "_glyph": 148,
+                  "_showGlyph": false
+                }
+              ]
             }
           }
         }

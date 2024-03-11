@@ -176,7 +176,7 @@ public class ChengSussyAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 270.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(1.2, -4.7), 180.0);
           stage = 7;
         }
 
