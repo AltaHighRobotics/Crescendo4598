@@ -56,6 +56,7 @@ public class ChengSussyAuto extends Command {
   public void execute() {
     boolean atPosition = false;
     boolean isShootFinalStage = false;
+    boolean shooterHaveMoved = false;
 
     switch(stage) {
       case 0: // Shoot
@@ -82,7 +83,7 @@ public class ChengSussyAuto extends Command {
       case 1: // Back out and try to pick up.
         atPosition = m_driveTrainSub.driveTo();
         m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
-        boolean shooterHaveMoved = false;
+        shooterHaveMoved = false;
         
         // Wait for shooter to stop before checking if it has moved.
         if (shooterMoveCheckStarted) { // Check for shooter move and run intake.
@@ -113,25 +114,78 @@ public class ChengSussyAuto extends Command {
 
         break;
       case 3: // shoot again.
-         isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
+        isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
 
         // Start timer thingy at final stage.
         if (isShootFinalStage && startTime == -1) {
           startTime = System.currentTimeMillis();
         }
 
-        // We is the done (:
+        // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
+
+          m_driveTrainSub.startDriveTo(new CartesianVector(2.1, -1.8), 55.0);
+          shooterMoveCheckStarted = false;
+
           stage = 4;
         }
 
         break;
-      case 4: // Back out one more time.
+      case 4: // Yet another grab thingy thing.
+        atPosition = m_driveTrainSub.driveTo();
+        m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
+        shooterHaveMoved = false;
+        
+        // Wait for shooter to stop before checking if it has moved.
+        if (shooterMoveCheckStarted) { // Check for shooter move and run intake.
+          shooterHaveMoved = m_shooterAndIntakeSub.checkIfShooterHasMoved();
+        } else if (m_shooterAndIntakeSub.getShooterVelocity() <= 0.0000001) {
+          shooterMoveCheckStarted = true;
+          m_shooterAndIntakeSub.startShooterMoveCheck();
+        }
+        
+        // Next stage or end.
+        if (shooterHaveMoved) {
+          stage = 5;
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 270.0);
+          m_shooterAndIntakeSub.stopIntake();
+        } else if (atPosition) {
+          done = true;
+        }
+
+        break;
+      case 5: // Drive to shoot again.
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
+          m_shooterAndIntakeSub.startShoot();
+          startTime = -1;
+          stage = 6;
+        }
+
+        break;
+      case 6:
+        isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
+
+        // Start timer thingy at final stage.
+        if (isShootFinalStage && startTime == -1) {
+          startTime = System.currentTimeMillis();
+        }
+
+        // More more we shall!
+        if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
+          m_shooterAndIntakeSub.endShoot();
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 270.0);
+          stage = 7;
+        }
+
+        break;
+      case 7: // amoungus hehehe
+         atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          m_shooterAndIntakeSub.startShoot();
           done = true;
         }
 

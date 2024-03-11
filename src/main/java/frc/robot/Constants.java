@@ -41,7 +41,7 @@ public final class Constants {
   public static final double CLIMB_DOWN_SPEED = -0.9;
 
   public static final double CLIMB_LOWER_LIMIT = 0.0;
-  public static final double CLIMB_UPPER_LIMIT = 600.0;
+  public static final double CLIMB_UPPER_LIMIT = 1120.0;
   
   // Solenoid stuff.
   public static final int COOLER_SOLENOID = 0;
