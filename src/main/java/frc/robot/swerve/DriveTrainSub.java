@@ -75,8 +75,8 @@ public class DriveTrainSub extends SubsystemBase {
     positionPID = new ConfigurablePID(Constants.SWERVE_POSITION_PID);
     headingPID = new ConfigurablePID(Constants.SWERVE_HEADING_PID);
 
-    //SmartDashboard.putData("Position PID", positionPID);
-    //SmartDashboard.putData("Heading PID", headingPID);
+    SmartDashboard.putData("Position PID", positionPID);
+    SmartDashboard.putData("Heading PID", headingPID);
   }
 
   public void resetGyro() {
