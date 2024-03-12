@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.autonomous.ChengSussyAuto;
+import frc.robot.autonomous.IKnewYouWouldAskAuto;
 import frc.robot.autonomous.NothingAuto;
 import frc.robot.autonomous.ShootOnlyAuto;
 import frc.robot.autonomous.TestAuto;
@@ -71,6 +72,7 @@ public class RobotContainer {
   private final ChengSussyAuto m_chengSussyAuto = new ChengSussyAuto(m_driveTrainSub, m_visionSub, m_shooterAndIntakeSub);
   private final NothingAuto m_nothingAuto = new NothingAuto();
   private final ShootOnlyAuto m_shootOnlyAuto = new ShootOnlyAuto(m_shooterAndIntakeSub);
+  private final IKnewYouWouldAskAuto m_iKnewYouWouldAskAuto = new IKnewYouWouldAskAuto(m_driveTrainSub, m_visionSub, m_shooterAndIntakeSub);
 
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -83,6 +85,7 @@ public class RobotContainer {
 
     // Auto chooser.
     m_autoChooser.setDefaultOption("Cheng sussy auto", m_chengSussyAuto);
+    m_autoChooser.addOption("I knew you would ask", m_iKnewYouWouldAskAuto);
     m_autoChooser.addOption("Test limelight", m_testLimelightAuto);
     m_autoChooser.addOption("Test", m_testAuto);
     m_autoChooser.addOption("Sussy nothing", m_nothingAuto);
