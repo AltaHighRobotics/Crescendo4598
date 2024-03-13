@@ -125,7 +125,7 @@ public class ChengSussyAuto extends Command {
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
 
-          m_driveTrainSub.startDriveTo(new CartesianVector(2.1, -1.8), 55.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(2.1, -1.8), 50.0);
           shooterMoveCheckStarted = false;
 
           stage = 4;
@@ -177,7 +177,7 @@ public class ChengSussyAuto extends Command {
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
 
-          m_driveTrainSub.startDriveTo(new CartesianVector(-2.1, -1.8), 275.0); // 1.2 -4.7
+          m_driveTrainSub.startDriveTo(new CartesianVector(-1.5, -2.032), 280.0); // 1.2 -4.7
           shooterMoveCheckStarted = false;
 
           stage = 7;
