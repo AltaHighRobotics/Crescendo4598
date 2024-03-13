@@ -11,6 +11,7 @@ import frc.robot.subsystems.ShooterAndIntakeSub;
 import frc.robot.subsystems.VisionSub;
 import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.swerve.AutoAlignment;
 
@@ -33,6 +34,8 @@ public class DriveShootFancypantsCommand extends Command {
   private long startTime;
 
   private boolean alignmentStarted;
+
+  private double shootSpeed;
 
   // Lots o tags lmao
   private class TagAlignmentInfo {
@@ -62,6 +65,8 @@ public class DriveShootFancypantsCommand extends Command {
     tagIdInfo = new HashMap<>();
     tagIdInfo.put(5, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
     tagIdInfo.put(6, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
+
+    shootSpeed = Constants.SHOOTER_ELLA_SPEED;
 
     addRequirements(m_driveTrainSub, m_shooterAndIntakeSub, m_visionSub);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -120,7 +125,7 @@ public class DriveShootFancypantsCommand extends Command {
 
         break;
       case 1: // shoot
-        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_ELLA_SPEED);
+        boolean isShootFinalStage = m_shooterAndIntakeSub.runShoot(shootSpeed);
 
         // Start timer thingy at final stage.
         if (isShootFinalStage && startTime == -1) {
@@ -141,9 +146,13 @@ public class DriveShootFancypantsCommand extends Command {
 
     SmartDashboard.putNumber("Stage", stage);
     SmartDashboard.putBoolean("Auto done", done);
+    shootSpeed = SmartDashboard.getNumber("Shoot speed", Constants.SHOOTER_ELLA_SPEED);
+    SmartDashboard.putNumber("Shoot speed", shootSpeed);
 
     m_driveTrainSub.run();
   }
+
+
 
   // Called once the command ends or is interrupted.
   @Override

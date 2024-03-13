@@ -57,7 +57,7 @@ public final class Constants {
   public static final double SHOOTER_BUILDTEAM_SPEED = 0.5;
   public static final double SHOOTER_ELLA_SPEED = 0.25;
 
-  public static final double INTAKE_SPEED = 0.6;
+  public static final double INTAKE_SPEED = 0.9;
 
   public static final double SHOOTER_MOVE_THRESHOLD = 0.05;
 
@@ -104,7 +104,7 @@ public final class Constants {
   public static final PIDConfiguration SWERVE_POSITION_PID = new PIDConfiguration(0.18, 0.0004, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
   public static final PIDConfiguration SWERVE_HEADING_PID = new PIDConfiguration(0.005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
   public static final double SWERVE_POSITION_THRESHOLD = 0.05;
-  public static final double SWERVE_HEADING_THRESHOLD = 5.0;
+  public static final double SWERVE_HEADING_THRESHOLD = 2.0;
 
   public static final int FRONT_RIGHT_MODULE = 0;
   public static final int FRONT_LEFT_MODULE = 1;
