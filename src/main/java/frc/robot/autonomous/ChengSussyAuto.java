@@ -155,7 +155,7 @@ public class ChengSussyAuto extends Command {
         // Next stage or end.
         if (shooterHaveMoved) {
           stage = 6;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.3), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.3), 345.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
