@@ -96,7 +96,7 @@ public class ChengSussyAuto extends Command {
         // Next stage or end.
         if (shooterHaveMoved) {
           stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.2), 0.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
@@ -124,15 +124,22 @@ public class ChengSussyAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-
-          m_driveTrainSub.startDriveTo(new CartesianVector(2.1, -1.8), 50.0);
-          shooterMoveCheckStarted = false;
-
+          m_driveTrainSub.startDriveTo(new CartesianVector(1.0, 0.0), 0.0);
           stage = 4;
         }
 
         break;
-      case 4: // Yet another grab thingy thing.
+      case 4:
+        atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          m_driveTrainSub.startDriveTo(new CartesianVector(1.0, -3.0), 0.0);
+          shooterMoveCheckStarted = false;
+          stage = 5;
+        }
+
+        break;
+      case 5: // Yet another grab thingy thing.
         atPosition = m_driveTrainSub.driveTo();
         m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
         shooterHaveMoved = false;
@@ -147,25 +154,25 @@ public class ChengSussyAuto extends Command {
         
         // Next stage or end.
         if (shooterHaveMoved) {
-          stage = 5;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 260.0);
+          stage = 6;
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.3), 0.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
         }
 
         break;
-      case 5: // Drive to shoot again.
+      case 6: // Drive to shoot again.
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
           m_shooterAndIntakeSub.startShoot();
           startTime = -1;
-          stage = 6;
+          stage = 7;
         }
 
         break;
-      case 6:
+      case 7: // shoot shoot
         isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
 
         // Start timer thingy at final stage.
@@ -176,15 +183,22 @@ public class ChengSussyAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-
-          m_driveTrainSub.startDriveTo(new CartesianVector(-1.5, -2.032), 280.0); // 1.2 -4.7
-          shooterMoveCheckStarted = false;
-
-          stage = 7;
+          m_driveTrainSub.startDriveTo(new CartesianVector(-1.5, 0.0), 0.0); // 1.2 -4.7
+          stage = 8;
         }
 
         break;
-      case 7: // More pain ):
+      case 8:
+        atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          shooterMoveCheckStarted = false;
+          m_driveTrainSub.startDriveTo(new CartesianVector(-1.5, -3.0), 0.0);
+          stage = 9;
+        }
+
+        break;
+      case 9: // More pain ):
         atPosition = m_driveTrainSub.driveTo();
         m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
         shooterHaveMoved = false;
@@ -199,25 +213,25 @@ public class ChengSussyAuto extends Command {
         
         // Next stage or end.
         if (shooterHaveMoved) {
-          stage = 8;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 90.0);
+          stage = 10;
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
           m_shooterAndIntakeSub.stopIntake();
         } /* else if (atPosition) {
           done = true;
         }*/
 
         break;
-      case 8: // more more drive to shoot
+      case 10: // more more drive to shoot
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          stage = 9;
+          stage = 11;
           startTime = -1;
           m_shooterAndIntakeSub.startShoot();
         }
         
         break;
-      case 9: // Shoot again lol.
+      case 11: // Shoot again lol.
         isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
 
         // Start timer thingy at final stage.
@@ -229,11 +243,11 @@ public class ChengSussyAuto extends Command {
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
           m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
-          stage = 10;
+          stage = 12;
         }
 
         break;
-      case 10: // bye bye
+      case 12: // bye bye
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {

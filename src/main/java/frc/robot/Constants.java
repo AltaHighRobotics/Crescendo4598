@@ -103,7 +103,7 @@ public final class Constants {
 
   public static final PIDConfiguration SWERVE_POSITION_PID = new PIDConfiguration(0.18, 0.0004, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
   public static final PIDConfiguration SWERVE_HEADING_PID = new PIDConfiguration(0.005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.4, 0.4);
-  public static final double SWERVE_POSITION_THRESHOLD = 0.05;
+  public static final double SWERVE_POSITION_THRESHOLD = 0.03;
   public static final double SWERVE_HEADING_THRESHOLD = 2.0;
 
   public static final int FRONT_RIGHT_MODULE = 0;
