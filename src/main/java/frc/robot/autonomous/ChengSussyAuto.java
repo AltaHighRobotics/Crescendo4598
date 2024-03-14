@@ -124,7 +124,7 @@ public class ChengSussyAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(1.0, 0.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(1.2, 0.0), 0.0);
           stage = 4;
         }
 
@@ -133,7 +133,7 @@ public class ChengSussyAuto extends Command {
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          m_driveTrainSub.startDriveTo(new CartesianVector(1.0, -3.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(1.2, -3.0), 0.0);
           shooterMoveCheckStarted = false;
           stage = 5;
         }
@@ -155,7 +155,7 @@ public class ChengSussyAuto extends Command {
         // Next stage or end.
         if (shooterHaveMoved) {
           stage = 6;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.3), 345.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.3), 0.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
