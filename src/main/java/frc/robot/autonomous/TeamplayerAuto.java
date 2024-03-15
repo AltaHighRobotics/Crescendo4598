@@ -14,7 +14,7 @@ import limelightvision.limelight.frc.LimeLight.LimeLightTransform;
 import utilities.CartesianVector;
 import frc.robot.subsystems.VisionSub;
 
-public class IKnewYouWouldAskAuto extends Command {
+public class TeamplayerAuto extends Command {
   DriveTrainSub m_driveTrainSub;
   VisionSub m_visionSub;
   ShooterAndIntakeSub m_shooterAndIntakeSub;
@@ -27,8 +27,7 @@ public class IKnewYouWouldAskAuto extends Command {
 
   private boolean shooterMoveCheckStarted;
 
-  /** Creates a new chengAutonomousCommand. */
-  public IKnewYouWouldAskAuto(DriveTrainSub driveTrainSub, VisionSub visionSub, ShooterAndIntakeSub shooterAndIntakeSub) {
+  public TeamplayerAuto(DriveTrainSub driveTrainSub, VisionSub visionSub, ShooterAndIntakeSub shooterAndIntakeSub) {
     m_driveTrainSub = driveTrainSub;
     m_visionSub = visionSub;
     m_shooterAndIntakeSub = shooterAndIntakeSub;
@@ -74,7 +73,7 @@ public class IKnewYouWouldAskAuto extends Command {
           // Drive back a bit.
           m_driveTrainSub.resetPosition();
           m_driveTrainSub.resetGyro();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -4.17), 60.0);
 
           stage = 1;
         }
@@ -96,7 +95,7 @@ public class IKnewYouWouldAskAuto extends Command {
         // Next stage or end.
         if (shooterHaveMoved) {
           stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -5.54), 0.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
@@ -124,7 +123,7 @@ public class IKnewYouWouldAskAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -3.0), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -0.0), 300.0);
           stage = 4;
         }
 

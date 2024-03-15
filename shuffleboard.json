@@ -535,6 +535,19 @@
                 }
               ]
             }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shoot speed",
+              "_title": "Shoot speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
