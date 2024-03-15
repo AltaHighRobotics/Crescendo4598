@@ -73,7 +73,7 @@ public class TeamplayerAuto extends Command {
           // Drive back a bit.
           m_driveTrainSub.resetPosition();
           m_driveTrainSub.resetGyro();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -4.17), 60.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(-1, -4.17), 60.0);
 
           stage = 1;
         }
@@ -93,9 +93,9 @@ public class TeamplayerAuto extends Command {
         }
         
         // Next stage or end.
-        if (shooterHaveMoved) {
+        if (atPosition) {
           stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -5.54), 0.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(1, -6), 300.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
@@ -106,7 +106,7 @@ public class TeamplayerAuto extends Command {
         atPosition = m_driveTrainSub.driveTo();
 
         if (atPosition) {
-          m_shooterAndIntakeSub.startShoot();
+          //m_shooterAndIntakeSub.startShoot();
           startTime = -1;
           stage = 3;
         }
@@ -123,7 +123,7 @@ public class TeamplayerAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, -0.0), 300.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 300.0);
           stage = 4;
         }
 
