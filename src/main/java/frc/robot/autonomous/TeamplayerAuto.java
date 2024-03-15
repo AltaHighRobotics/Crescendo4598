@@ -73,7 +73,7 @@ public class TeamplayerAuto extends Command {
           // Drive back a bit.
           m_driveTrainSub.resetPosition();
           m_driveTrainSub.resetGyro();
-          m_driveTrainSub.startDriveTo(new CartesianVector(-1, -4.17), 60.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(-2, -4.17), 60.0);
 
           stage = 1;
         }
@@ -95,7 +95,7 @@ public class TeamplayerAuto extends Command {
         // Next stage or end.
         if (atPosition) {
           stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(1, -6), 300.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(1, -5), 275.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
