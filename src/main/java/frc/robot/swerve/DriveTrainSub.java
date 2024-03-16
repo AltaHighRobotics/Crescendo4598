@@ -223,7 +223,7 @@ public class DriveTrainSub extends SubsystemBase {
     for (SwerveModule module : swerveModuleSubs) {
       module.trackDistance();
 
-      double turnAngle = module.getTurnAngle();
+      double turnAngle = module.getCurrentAngle();
       double angle = Math.toRadians(yaw + turnAngle);
       double distanceRate = module.getDistanceRate();
 

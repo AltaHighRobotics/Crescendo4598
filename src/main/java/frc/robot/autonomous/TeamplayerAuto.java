@@ -95,7 +95,7 @@ public class TeamplayerAuto extends Command {
         // Next stage or end.
         if (atPosition) {
           stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(3.8, -5.5), 275.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(3.9, -7), 300.0);
           m_shooterAndIntakeSub.stopIntake();
         } else if (atPosition) {
           done = true;
@@ -108,7 +108,7 @@ public class TeamplayerAuto extends Command {
         if (atPosition) {
           //m_shooterAndIntakeSub.startShoot();
           startTime = -1;
-          stage = 3;
+          stage = 4;
         }
 
         break;

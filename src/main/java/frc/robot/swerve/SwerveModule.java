@@ -139,6 +139,17 @@ public class SwerveModule {
     return this.turnAngle;
   }
 
+  public double getCurrentAngle() {
+    double angle = getTurnEncoderPosition();
+    
+    if (wheelDirection == BACKWARD) {
+      angle += 180.0;
+    }
+
+    angle = MathTools.wrapAngle(angle);
+    return angle;
+  }
+
   public double getWheelEncoder() {
     return wheelMotor.getPosition().getValue() * Constants.SWERVE_MODULE_WHEEL_ENCODER_DISTANCE_PER_PULSE;
   }

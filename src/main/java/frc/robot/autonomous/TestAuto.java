@@ -29,6 +29,7 @@ public class TestAuto extends Command {
     done = false;
 
     m_driveTrainSub.resetGyro();
+    m_driveTrainSub.resetPosition();
 
     // Set first drive to position.
     m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 1.0), 90.0);
