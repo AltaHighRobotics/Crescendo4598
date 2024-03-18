@@ -108,7 +108,7 @@ public class TeamplayerAuto extends Command {
         if (atPosition) {
           //m_shooterAndIntakeSub.startShoot();
           startTime = -1;
-          stage = 4;
+          stage = 3;
         }
 
         break;
@@ -123,7 +123,7 @@ public class TeamplayerAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(0.0, 0.0), 300.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(-0.5,-1.0), 270.0);
           stage = 4;
         }
 

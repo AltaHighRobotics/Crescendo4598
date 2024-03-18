@@ -41,10 +41,12 @@ public class DriveShootFancypantsCommand extends Command {
   private class TagAlignmentInfo {
     public CartesianVector position;
     public double heading;
+    public double shootSpeed;
 
-    public TagAlignmentInfo(CartesianVector position, double heading) {
+    public TagAlignmentInfo(CartesianVector position, double heading, double shootSpeed) {
       this.position = position;
       this.heading = heading;
+      this.shootSpeed = shootSpeed;
     }
   }
 
@@ -63,8 +65,13 @@ public class DriveShootFancypantsCommand extends Command {
 
     // Tag tag stuff
     tagIdInfo = new HashMap<>();
-    tagIdInfo.put(5, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
-    tagIdInfo.put(6, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0));
+    tagIdInfo.put(5, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0, 0.25));
+    tagIdInfo.put(6, new TagAlignmentInfo(new CartesianVector(0.0, 0.35), 0.0, 0.25));
+
+    for (int id = 11; id < 17; ++id)
+    {
+      tagIdInfo.put(id, new TagAlignmentInfo(new CartesianVector(0.0, 0.93), 0.0, 0.82));
+    }
 
     shootSpeed = Constants.SHOOTER_ELLA_SPEED;
 
@@ -111,6 +118,7 @@ public class DriveShootFancypantsCommand extends Command {
             if (tagInfo != null) {
               alignmentStarted = true;
               autoAlignment.start(tagInfo.position, tagInfo.heading);
+              shootSpeed = tagInfo.shootSpeed;
             }
           }
           
@@ -146,8 +154,8 @@ public class DriveShootFancypantsCommand extends Command {
 
     SmartDashboard.putNumber("Stage", stage);
     SmartDashboard.putBoolean("Auto done", done);
-    shootSpeed = SmartDashboard.getNumber("Shoot speed", Constants.SHOOTER_ELLA_SPEED);
-    SmartDashboard.putNumber("Shoot speed", shootSpeed);
+    // shootSpeed = SmartDashboard.getNumber("Shoot speed", Constants.SHOOTER_ELLA_SPEED);
+    // SmartDashboard.putNumber("Shoot speed", shootSpeed);
 
     m_driveTrainSub.run();
   }
