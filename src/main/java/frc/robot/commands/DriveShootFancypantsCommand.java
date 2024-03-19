@@ -70,7 +70,7 @@ public class DriveShootFancypantsCommand extends Command {
 
     for (int id = 11; id < 17; ++id)
     {
-      tagIdInfo.put(id, new TagAlignmentInfo(new CartesianVector(0.0, 0.93), 0.0, 0.82));
+      tagIdInfo.put(id, new TagAlignmentInfo(new CartesianVector(-0.085, 0.928), -20.0, 0.8));
     }
 
     shootSpeed = Constants.SHOOTER_ELLA_SPEED;

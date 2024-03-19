@@ -79,7 +79,26 @@ public class TeamplayerAuto extends Command {
         }
 
         break;
-      case 1: // Back out and try to pick up.
+      case 1:
+        atPosition = m_driveTrainSub.driveTo();
+      
+        // Next stage or end.
+        if (atPosition) {
+          stage = 2;
+          m_driveTrainSub.startDriveTo(new CartesianVector(3.5, -6.5), 300.0);
+          m_shooterAndIntakeSub.stopIntake();
+        }
+      
+        break;
+      case 2:
+        atPosition = m_driveTrainSub.driveTo();
+
+        if (atPosition) {
+          //m_shooterAndIntakeSub.startShoot();
+          startTime = -1;
+          stage = 3;
+        }
+
         atPosition = m_driveTrainSub.driveTo();
         m_shooterAndIntakeSub.setIntakeMotor(Constants.INTAKE_SPEED);
         shooterHaveMoved = false;
@@ -91,28 +110,14 @@ public class TeamplayerAuto extends Command {
           shooterMoveCheckStarted = true;
           m_shooterAndIntakeSub.startShooterMoveCheck();
         }
-        
-        // Next stage or end.
-        if (atPosition) {
-          stage = 2;
-          m_driveTrainSub.startDriveTo(new CartesianVector(3.9, -7), 300.0);
-          m_shooterAndIntakeSub.stopIntake();
-        } else if (atPosition) {
-          done = true;
-        }
-      
-        break;
-      case 2: // Drive to shoot.
-        atPosition = m_driveTrainSub.driveTo();
 
-        if (atPosition) {
-          //m_shooterAndIntakeSub.startShoot();
-          startTime = -1;
-          stage = 3;
+        if (shooterHaveMoved) {
+           startTime = -1;
+           stage = 3;
         }
 
         break;
-      case 3: // shoot again.
+      case 3:
         isShootFinalStage = m_shooterAndIntakeSub.runShoot(Constants.SHOOTER_RYKEN_SPEED);
 
         // Start timer thingy at final stage.
@@ -123,7 +128,7 @@ public class TeamplayerAuto extends Command {
         // More more we shall!
         if (System.currentTimeMillis() - startTime >= 500 && startTime != -1) {
           m_shooterAndIntakeSub.endShoot();
-          m_driveTrainSub.startDriveTo(new CartesianVector(-0.5,-1.0), 270.0);
+          m_driveTrainSub.startDriveTo(new CartesianVector(-0,-1.0), 280.0);
           stage = 4;
         }
 
